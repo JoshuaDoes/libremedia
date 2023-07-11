@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-US" encoding="utf8">
+	<head>
+		<title>libremedia</title>
+
+		<!-- Third-party libraries -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="//unpkg.com/navigo" type="text/javascript"></script>
+		<script src="/js/jszip.min.js" type="text/javascript"></script>
+		<script src="/js/jszip-utils.min.js" type="text/javascript"></script>
+		<script src="/js/FileSaver.min.js" type="text/javascript"></script>
+
+		<!-- libremedia -->
+		<link rel="stylesheet" type="text/css" href="/css/libremedia.css">
+		<link rel="stylesheet" type="text/css" href="/css/audioplayer.css">
+		<script src="/js/libremedia/audioplayer.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-api.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-artwork.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-downloader.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-pages.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-playback.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-search.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-tables.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-transcript.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-utils.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia-navigation.js" type="text/javascript"></script>
+		<script src="/js/libremedia/libremedia.js" type="text/javascript"></script>
+
+		<!-- Third-party style sheets -->
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	</head>
+	<body>
+		<div id="results"></div>
+		<div id="search"></div>
+		<div id="infobar">
+			<audio preload="metdata" id="audioPlayer" src="" hidden></audio>
+			<div id="audioInfo"></div>
+			<div id="audioControls"></div>
+			<div id="audioTimer"></div>
+			<div id="downloadProgress">
+				<div id="progressBar">0%</div>
+			</div>
+		</div>
+		<div id="nav"></div>
+	</body>
+</html>
+

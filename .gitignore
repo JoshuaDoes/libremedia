@@ -1,0 +1,25 @@
+# Configuration
+config*.json
+
+# Cache
+cache/
+*.blob
+
+# Output executables
+*.exe
+*.app
+*.old
+*.bak
+
+# Most probable output executables for Linux
+libremedia.app
+
+# Log files
+*.log
+
+# Supervise
+run
+supervise/
+
+# OS leftovers
+desktop.ini
