@@ -73,7 +73,7 @@ table {
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
-  background-color: rgba(var(--theme-background-a));
+  /* background-color: rgba(var(--theme-background-a)); */
   line-height: 1.5em;
   letter-spacing: 1.1px;
   table-layout: fixed;
@@ -83,10 +83,18 @@ th {
   font-size: 1.4em;
   text-align: center;
   height: 60px;
+  backdrop-filter: blur(4px) brightness(65%) saturate(150%);
+  border-collapse: separate;
+  border-spacing: 5px;
+  border-radius: 20px;
 }
 
 td {
   border-bottom: 0.1px dotted rgb(var(--theme-accent));
+  backdrop-filter: blur(10px) brightness(65%) saturate(150%);
+  border-collapse: separate;
+  border-spacing: 5px;
+  border-radius: 20px;
 }
 
 #controls {
@@ -108,7 +116,8 @@ td {
   letter-spacing: 1.1px;
   height: 200px;
   line-height: 1.2em;
-  width: 100%;
+  width: auto;
+  backdrop-filter: blur(2px) brightness(95%) saturate(150%);
 }
 #lyricplayed {
   color: rgba(var(--theme-accent));
@@ -139,7 +148,11 @@ td {
   padding-bottom: 5px;
   border-top: 1px dotted rgb(var(--theme-text));
   border-bottom: 1px dashed rgb(var(--theme-text));
-  background-color: rgba(var(--theme-background-overlay));
+  /* background-color: rgba(var(--theme-background-overlay)); */
+  backdrop-filter: blur(7px) brightness(50%) saturate(150%);
+  border-collapse: separate;
+  border-spacing: 5px;
+  border-radius: 20px;
 }
 
 #infobar #hidden {
@@ -155,11 +168,12 @@ td {
   padding: 0px;
   border-top: 0.5px solid rgb(var(--theme-text));
   border-bottom: 0.5px solid rgb(var(--theme-text));
-  background-color: rgba(var(--theme-background-overlay));
+  /* background-color: rgba(var(--theme-background-overlay)); */
   top: 0;
   position: fixed;
   width: 100%;
   height: 80px;
+  backdrop-filter: blur(7px) brightness(50%) saturate(150%);
 }
 
 #search #hidden {
@@ -170,14 +184,16 @@ td {
   text-align: center;
   margin-top: 30px;
   font-size: 5em;
-  background-color: rgba(var(--theme-background-overlay));
+  /* background-color: rgba(var(--theme-background-overlay)); */
+  backdrop-filter: blur(3px) brightness(75%) saturate(150%);
 }
 
 #notification {
   text-align: center;
   margin-top: 10px;
   font-size: 2em;
-  background-color: rgba(var(--theme-background-overlay));
+  /* background-color: rgba(var(--theme-background-overlay)); */
+  backdrop-filter: blur(3px) brightness(75%) saturate(150%);
 }
 
 #stream a {
@@ -206,6 +222,7 @@ td {
 
 h1 {
   font-weight: bold;
+  backdrop-filter: blur(3px) brightness(75%) saturate(150%);
 }
 
 h2 {}

@@ -74,6 +74,9 @@ function refreshElements() {
 }
 
 const render = (match, content) => {
+	//Make sure we know our stuff first
+	refreshElements()
+
 	//Clear the page if we're rendering something
 	if (match != null && content != null)
 		clearPage();

@@ -151,7 +151,7 @@ function tblAlbums(albums) {
 	return html;
 }
 function tblSingles(albums) {
-	var html = '<tr><th colspan="5">Singles</th></tr>';
+	var html = '<tr><th colspan="5">Singles & EPs</th></tr>';
 	for (let i = 0; i < albums.length; i++) {
 		const album = albums[i];
 		html += tblAlbum(album.provider, album.object);

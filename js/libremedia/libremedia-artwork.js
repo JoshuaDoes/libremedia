@@ -1,4 +1,7 @@
 function setBgImg(url) {
+	if (url == "")
+		return;
+
 	//console.log("setBgImg: " + url);
 	var newbg = 'url("' + url + '")';
 	if (url == "") {
@@ -6,7 +9,7 @@ function setBgImg(url) {
 	}
 
 	if (document.body.style.backgroundImage !== newbg) {
-		//console.log("Setting background " + url + " using " + newbg + " to replace " + document.body.style.backgroundImage);
+		console.log("Setting background " + url + " using " + newbg + " to replace " + document.body.style.backgroundImage);
 		document.body.style.backgroundImage = newbg;
 		bgImg = url;
 	}

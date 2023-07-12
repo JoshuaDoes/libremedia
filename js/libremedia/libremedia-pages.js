@@ -209,7 +209,6 @@ async function displayTranscript(match) {
 		stream = v1GetObject(uri).object;
 	}
 	//console.log("Transcript: Is now playing? " + isNowPlaying);
-	setBgStream(stream);
 
 	if (stream.transcript != null && stream.transcript.lines != null && stream.transcript.lines.length > 0) {
 		var colspan = 0;
