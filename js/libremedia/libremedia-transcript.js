@@ -58,12 +58,6 @@ function lyricScroller() {
 		return;
 	}
 
-	if (window.scrollY != lastScrollY && lastLyric > -1) {
-		//console.log("Clearing scroller because user scrolled");
-		clearInterval(lyricScrollerId);
-		return;
-	}
-
 	if (player.paused) {
 		//console.log("Auto-scroll is paused");
 		return;
@@ -108,7 +102,7 @@ function lyricSeek(lyric) {
 	var startTime = Math.floor(startTimeMs/1000);
 	//console.log("Seeking to timestamp " + startTime);
 	player.currentTime = startTime;
-	clearInterval(lyricScrollerId);
+	timer.innerHTML = secondsTimestamp(player.currentTime) + " / " + secondsTimestamp(player.duration);
 	lastScrollY = window.scrollY;
 	lyricScroll(lyric);
 	lyricScrollerId = setInterval(lyricScroller, 100);
