@@ -16,6 +16,7 @@ function clearPage() {
 }
 
 async function displayNotification(msg, timeout) {
+	console.log("Notification: " + msg);
 	interruptNotification = true;
 	notif.innerHTML = "";
 	notif.style.opacity = "0.0";

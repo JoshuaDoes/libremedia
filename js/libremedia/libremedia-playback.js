@@ -80,7 +80,7 @@ function updateAudioPlayer(streamURI) {
 	const name = '<div id="stream"><a href="/stream?uri=' + streamURI + '" data-navigo>' + stream.name + '</a></div>';
 	const duration = stream.duration / 1000.0;
 
-	displayNotification("Now playing:" + name + creator + album, 5000);
+	displayNotification("Now playing:<br />" + name + creator + album, 4000);
 	metadata.innerHTML = name + creator + album;
 	if (albumObj.datetime != null)
 		metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
@@ -180,7 +180,7 @@ function queueAddStream(match) {
 	}
 	queueAdd(stream);
 	pagePotato(match);
-	displayNotification("Added to stream!", 5000);
+	displayNotification("Added to stream!", 4000);
 }
 
 //Adds to immediately play next, but logically treats it as the end of the up next queue
