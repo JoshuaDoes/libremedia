@@ -68,7 +68,7 @@ function lyricScroller() {
 		var curTime = player.currentTime*1000;
 		var lyric = lastLyric;
 		if (lastLyric > -1) {
-			for (let i = 0; i < nowPlayingTiming.length; i++) {
+			for (let i = lastLyric; i < nowPlayingTiming.length; i++) {
 				var line = nowPlayingTiming[i];
 				if (line == null) {
 					continue;
