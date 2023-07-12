@@ -3,6 +3,8 @@ function createAudioPlayer() {
 		return;
 	}
 	createdAudioPlayer = true;
+	if (!visibility)
+		return;
 
 	controls.innerHTML = "";
 	buttonTranscript = document.createElement("button");

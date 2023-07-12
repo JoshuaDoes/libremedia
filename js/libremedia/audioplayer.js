@@ -15,7 +15,8 @@ var init = false;
 
 function audioInit() {
   btnPP = document.getElementById("btnPP");
-  btnPP.addEventListener("click", audioPP);
+  if (btnPP != null)
+    btnPP.addEventListener("click", audioPP);
   audio = document.getElementById("audioPlayer");
   timer = document.getElementById("audioTimer");
 
@@ -23,14 +24,16 @@ function audioInit() {
     return;
   }
 
-  audio.addEventListener("loadstart", audioLoad);
-  audio.addEventListener("canplay", audioReady);
-  audio.addEventListener("pause", audioPause);
-  audio.addEventListener("play", audioPlay);
-  audio.addEventListener("playing", audioResume);
-  audio.addEventListener("timeupdate", audioTime);
-  audio.addEventListener("waiting", audioBuffer);
-  audio.addEventListener("ended", audioEnd);
+  if (audio != null) {
+    audio.addEventListener("loadstart", audioLoad);
+    audio.addEventListener("canplay", audioReady);
+    audio.addEventListener("pause", audioPause);
+    audio.addEventListener("play", audioPlay);
+    audio.addEventListener("playing", audioResume);
+    audio.addEventListener("timeupdate", audioTime);
+    audio.addEventListener("waiting", audioBuffer);
+    audio.addEventListener("ended", audioEnd);
+  }
 
   init = true;
 };

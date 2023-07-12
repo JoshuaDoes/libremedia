@@ -8,16 +8,20 @@ function clearPage() {
 	lastScrollY = -1;
 	lastLyric = -1;
 	render(null, ""); //Clear the page
-	searching.innerHTML = '';
-	searchbox.value = '';
+	if (searching != null)
+		searching.innerHTML = '';
+	if (searchbox != null)
+		searchbox.value = '';
 	bgImg = "";
 	resetBgImg();
 	//pageObject = [];
 }
 
 async function displayNotification(msg, timeout) {
-	console.log("Notification: " + msg);
+	//console.log("Notification: " + msg);
 	interruptNotification = true;
+	if (notif == null)
+		return;
 	notif.innerHTML = "";
 	notif.style.opacity = "0.0";
 	await new Promise(r => setTimeout(r, 33));
