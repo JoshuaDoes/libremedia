@@ -70,7 +70,7 @@ body {
 table {
   margin: 10px;
   padding-top: 75px;
-  backdrop-filter: blur(3px) brightness(75%) saturate(150%);
+  backdrop-filter: blur(5px) brightness(50%) saturate(150%);
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
@@ -84,7 +84,6 @@ th {
   font-size: 1.4em;
   text-align: center;
   height: 60px;
-  backdrop-filter: blur(4px) brightness(65%) saturate(150%);
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
@@ -92,7 +91,6 @@ th {
 
 td {
   border-bottom: 0.1px dotted rgb(var(--theme-accent));
-  backdrop-filter: blur(10px) brightness(65%) saturate(150%);
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;

@@ -112,7 +112,7 @@ func (s *Service) Download(w http.ResponseWriter, r *http.Request, stream *Objec
 		return fmt.Errorf("provider not specified")
 	}
 	if handler, exists := handlers[stream.Provider]; exists {
-		w.Header().Set("Content-Disposition", "attachment; filename="+stream.FileName())
+		w.Header().Set("Content-Disposition", "attachment; filename=\""+stream.FileName()+"\"")
 		return handler.StreamFormat(w, r, stream, format)
 	}
 	return fmt.Errorf("no handler for provider " + stream.Provider)
