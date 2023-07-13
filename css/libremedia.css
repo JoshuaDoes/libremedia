@@ -50,7 +50,6 @@ body {
   margin: 15px;
   display: block;
   text-align: left;
-  font-size: 2em;
   color: rgb(var(--theme-text));
   bottom: 0;
   backdrop-filter: blur(3px) brightness(75%) saturate(150%);
@@ -81,7 +80,6 @@ table {
 }
 
 th {
-  font-size: 1.4em;
   text-align: center;
   height: 60px;
   border-collapse: separate;
@@ -109,7 +107,6 @@ td {
   cursor: pointer;
   border: 0;
   border-style: none none none none;
-  font-size: 2.7em;
   font-weight: bolder;
   padding: 0px !important;
   letter-spacing: 1.1px;
@@ -138,7 +135,6 @@ td {
   width: 100%;
   flex-direction: column;
   text-align: center;
-  font-size: 1.1em;
   padding-top: 5px;
   padding-bottom: 5px;
   border-top: 1px dotted rgb(var(--theme-text));
@@ -178,7 +174,6 @@ td {
 #searching {
   text-align: center;
   margin-top: 30px;
-  font-size: 5em;
   /* background-color: rgba(var(--theme-background-overlay)); */
   backdrop-filter: blur(3px) brightness(75%) saturate(150%);
 }
@@ -186,7 +181,6 @@ td {
 #notification {
   text-align: center;
   margin-top: 10px;
-  font-size: 2em;
   /* background-color: rgba(var(--theme-background-overlay)); */
   backdrop-filter: blur(5px) brightness(20%) saturate(150%);
   border-collapse: separate;
@@ -207,12 +201,10 @@ td {
 }
 
 #datetime {
-  font-size: 0.8em;
   color: rgb(var(--theme-datetime));
 }
 
 #genre {
-  font-size: 2em;
   text-align: right;
 }
 
@@ -251,7 +243,6 @@ input[type="text"] {
   border: none;
   border-bottom: 0.5px solid rgb(var(--theme-text));
   color: rgb(var(--theme-text));
-  font-size: 2em;
   text-align: center;
   height: 70px;
   width: 90%;
