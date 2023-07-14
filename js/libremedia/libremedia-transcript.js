@@ -28,11 +28,7 @@ function lyricScroll(lyric) {
 	//console.log("Scrolling to lyric " + lyric);
 	if (nowPlayingTiming.length > 0) {
 		var lyricLine;
-		if (lyric >= nowPlayingTiming.length) {
-			lyricLine = document.getElementById("lyricEnd");
-		} else {
-			lyricLine = document.getElementById("lyric" + lyric);
-		}
+		lyricLine = document.getElementById("lyric" + lyric);
 		if (lyricLine == null) {
 			//console.log("Failed to find lyric line!");
 			return;

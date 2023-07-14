@@ -68,7 +68,7 @@ body {
 
 table {
   margin: 10px;
-  padding-top: 75px;
+  padding-top: 45px;
   backdrop-filter: blur(5px) brightness(50%) saturate(150%);
   border-collapse: separate;
   border-spacing: 5px;
@@ -107,8 +107,9 @@ td {
   cursor: pointer;
   border: 0;
   border-style: none none none none;
-  font-weight: bolder;
   padding: 0px !important;
+  font-size: 2em;
+  font-weight: bolder;
   letter-spacing: 1.1px;
   height: 200px;
   line-height: 1.2em;
@@ -120,7 +121,7 @@ td {
 }
 #lyricblank {
   cursor: pointer;
-  height: 85vh;
+  height: 100vh;
   width: 100%;
   backdrop-filter: blur(0px) brightness(100%) saturate(100%);
 }

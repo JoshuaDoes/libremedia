@@ -244,7 +244,6 @@ async function displayTranscript(match) {
 				html += '<tr><td id="lyricblank" onclick="lyricSeek(' + (i+1) + ')" colspan="' + colspan + '"><div id="lyric' + (i+1) + '"></div></td></tr>';
 			}
 		}
-		html += '<tr><td id="lyricblank" colspan="' + colspan + '" onclick="lyricSeek(' + lines.length + ')"><div id="lyricEnd"></div></td></tr>';
 		render(match, html);
 
 		if (isNowPlaying) {
@@ -255,3 +254,4 @@ async function displayTranscript(match) {
 		render(match, "No transcript for this stream!");
 	}
 }
+
