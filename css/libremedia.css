@@ -115,7 +115,7 @@ td {
   height: 200px;
   line-height: 1.2em;
   width: auto;
-  backdrop-filter: blur(2px) brightness(75%) saturate(150%);
+  border-bottom: none;
 }
 #lyricplayed {
   color: rgba(var(--theme-accent));
@@ -124,7 +124,7 @@ td {
   cursor: pointer;
   height: 100vh;
   width: 100%;
-  backdrop-filter: blur(0px) brightness(100%) saturate(100%);
+  border-bottom: none;
 }
 
 #infobar {
