@@ -194,7 +194,7 @@ td {
   border-spacing: 5px;
   border-radius: 20px;
   font-size: 2em;
-  width: 100%;
+  width: 100vw;
 }
 
 #stream a {
