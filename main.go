@@ -117,7 +117,12 @@ func v1Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if !obj.Expanded && !obj.Expanding {
-		go obj.Expand()
+		switch obj.Type {
+		case "album":
+			obj.Expand()
+		default:
+			go obj.Expand()
+		}
 	}
 	jsonWrite(w, obj)
 }
