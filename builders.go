@@ -90,10 +90,13 @@ func GetObjectLive(mediaURI string) (obj *Object) {
 		resultsJSON, err := json.Marshal(results)
 		if err != nil {
 			Error.Printf("Unable to marshal search results: %v\n", err)
-			return
+			return NewObjError(fmt.Sprintf("invalid search %s: %v", query, err))
 		}
 
-		obj.Object.UnmarshalJSON(resultsJSON)
+		if err := obj.Object.UnmarshalJSON(resultsJSON); err != nil {
+			Error.Printf("Unable to unmarshal search results: %v\n", err)
+			return NewObjError(fmt.Sprintf("invalid search %s: %v", query, err))
+		}
 		return
 	}
 
@@ -105,30 +108,42 @@ func GetObjectLive(mediaURI string) (obj *Object) {
 			case "artist", "creator", "user", "channel", "chan", "streamer":
 				creator, err := handler.Creator(id)
 				if err != nil {
+					Error.Printf("Invalid creator %s: %v\n", id, err)
 					return NewObjError(fmt.Sprintf("invalid creator %s: %v", id, err))
 				}
 				obj.Type = "creator"
 				creatorJSON, err := json.Marshal(creator)
 				if err != nil {
 					Error.Printf("Unable to marshal creator: %v\n", err)
-					return
+					return NewObjError(fmt.Sprintf("invalid creator %s: %v", id, err))
 				}
-				obj.Object.UnmarshalJSON(creatorJSON)
+				if err := obj.Object.UnmarshalJSON(creatorJSON); err != nil {
+					Error.Printf("Unable to unmarshal creator: %v\n", err)
+					return NewObjError(fmt.Sprintf("invalid creator %s: %v", id, err))
+				}
 			case "album":
+				Trace.Printf("Searching for album %s\n", mediaURI)
 				album, err := handler.Album(id)
 				if err != nil {
+					Error.Printf("Invalid album %s: %v\n", id, err)
 					return NewObjError(fmt.Sprintf("invalid album %s: %v", id, err))
 				}
+				Trace.Printf("Found album %s\n", mediaURI)
 				obj.Type = "album"
 				albumJSON, err := json.Marshal(album)
 				if err != nil {
 					Error.Printf("Unable to marshal album: %v\n", err)
-					return
+					return NewObjError(fmt.Sprintf("invalid album %s: %v", id, err))
 				}
-				obj.Object.UnmarshalJSON(albumJSON)
+				if err := obj.Object.UnmarshalJSON(albumJSON); err != nil {
+					Error.Printf("Unable to unmarshal album: %v\n", err)
+					return NewObjError(fmt.Sprintf("invalid album %s: %v", id, err))
+				}
+				Trace.Printf("Successfully loaded album %s\n", mediaURI)
 			case "track", "song", "video", "audio", "stream":
 				stream, err := handler.Stream(id)
 				if err != nil {
+					Error.Printf("Invalid stream %s: %v\n", id, err)
 					return NewObjError(fmt.Sprintf("invalid stream %s: %v", id, err))
 				}
 				obj.Type = "stream"
@@ -136,14 +151,19 @@ func GetObjectLive(mediaURI string) (obj *Object) {
 				streamJSON, err := json.Marshal(stream)
 				if err != nil {
 					Error.Printf("Unable to marshal stream: %v\n", err)
-					return
+					return NewObjError(fmt.Sprintf("invalid stream %s: %v", id, err))
 				}
-				obj.Object.UnmarshalJSON(streamJSON)
+				if err := obj.Object.UnmarshalJSON(streamJSON); err != nil {
+					Error.Printf("Unable to unmarshal stream: %v\n", err)
+					return NewObjError(fmt.Sprintf("invalid stream %s: %v", id, err))
+				}
 			}
 
+			Info.Printf("Successfully found live object for %s\n", mediaURI)
 			return obj
 		}
 	}
 
+	Error.Printf("Failed to find live object for %s\n", mediaURI)
 	return nil
 }

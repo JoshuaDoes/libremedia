@@ -33,22 +33,22 @@ import (
 	"golang.org/x/oauth2/clientcredentials"
 
 	//GitHub repos
-	"github.com/dsoprea/go-utility/filesystem"
 	"github.com/JoshuaDoes/json"
+	"github.com/dsoprea/go-utility/filesystem"
 )
 
 const (
-	tidalAuth   = "https://auth.tidal.com/v1/oauth2"
-	tidalAPI    = "https://api.tidal.com/v1/"
-	tidalImgURL = "https://resources.tidal.com/images/%s/%dx%d.jpg"
-	tidalVidURL = "https://resources.tidal.com/videos/%s/%dx%d.mp4"
-	tidalTracksItems  = "100" //max 100
-	tidalSearchItems  = "10" //max 100
+	tidalAuth        = "https://auth.tidal.com/v1/oauth2"
+	tidalAPI         = "https://api.tidal.com/v1/"
+	tidalImgURL      = "https://resources.tidal.com/images/%s/%dx%d.jpg"
+	tidalVidURL      = "https://resources.tidal.com/videos/%s/%dx%d.mp4"
+	tidalTracksItems = "100" //max 100
+	tidalSearchItems = "10"  //max 100
 )
 
 var (
 	tidalSizesCreator = []int{160, 320, 480, 750}
-	tidalSizesAlbum = []int{80, 160, 320, 640, 1280}
+	tidalSizesAlbum   = []int{80, 160, 320, 640, 1280}
 
 	tidalurire = regexp.MustCompile(`\[wimpLink (.*?)="(.*?)"\](.*?)\[/wimpLink\]`)
 )
@@ -73,19 +73,22 @@ type TidalClient struct {
 	ClientID     string `json:"clientID"`
 	ClientSecret string `json:"clientSecret"`
 
-	HTTP *oauth2.Transport `json:"-"`
-	Auth *TidalDeviceCode  `json:"auth"`
-	Service *Service `json:"-"`
+	HTTP    *oauth2.Transport `json:"-"`
+	Auth    *TidalDeviceCode  `json:"auth"`
+	Service *Service          `json:"-"`
 }
 
+// Provider returns the name of this provider
 func (t *TidalClient) Provider() string {
 	return "tidal"
 }
 
+// SetService sets the global libremedia service for this provider
 func (t *TidalClient) SetService(service *Service) {
 	t.Service = service
 }
 
+// Authenticate authenticates this Tidal session
 func (t *TidalClient) Authenticate(cfg *HandlerConfig) (handler Handler, err error) {
 	if cfg.Username == "" || cfg.Password == "" || cfg.BlobPath == "" {
 		return nil, fmt.Errorf("tidal: must provide username, password, and path to file for storing auth blob")
@@ -99,12 +102,11 @@ func (t *TidalClient) Authenticate(cfg *HandlerConfig) (handler Handler, err err
 		t, err = NewTidal(id, secret)
 		if err != nil {
 			return nil, fmt.Errorf("tidal: unable to receive device code for account linking: %v", err)
-		} else {
-			os.Stderr.Write([]byte("Please link your Tidal account to continue!\n- https://" + t.Auth.VerificationURIComplete + "\n"))
-			err = t.WaitForAuth()
-			if err != nil {
-				return nil, fmt.Errorf("tidal: unable to receive auth token: %v", err)
-			}
+		}
+		os.Stderr.Write([]byte("Please link your Tidal account to continue!\n- https://" + t.Auth.VerificationURIComplete + "\n"))
+		err = t.WaitForAuth()
+		if err != nil {
+			return nil, fmt.Errorf("tidal: unable to receive auth token: %v", err)
 		}
 	} else {
 		if t.NeedsAuth() {
@@ -112,12 +114,11 @@ func (t *TidalClient) Authenticate(cfg *HandlerConfig) (handler Handler, err err
 			err = t.NewDeviceCode()
 			if err != nil {
 				return nil, fmt.Errorf("tidal: unable to receive device code for account linking: %v", err)
-			} else {
-				os.Stderr.Write([]byte("Please link your Tidal account to continue!\n- https://" + t.Auth.VerificationURIComplete + "\n"))
-				err = t.WaitForAuth()
-				if err != nil {
-					return nil, fmt.Errorf("tidal: unable to receive auth token: %v", err)
-				}
+			}
+			os.Stderr.Write([]byte("Please link your Tidal account to continue!\n- https://" + t.Auth.VerificationURIComplete + "\n"))
+			err = t.WaitForAuth()
+			if err != nil {
+				return nil, fmt.Errorf("tidal: unable to receive auth token: %v", err)
 			}
 		}
 	}
@@ -127,6 +128,7 @@ func (t *TidalClient) Authenticate(cfg *HandlerConfig) (handler Handler, err err
 	return t, nil
 }
 
+// Get attempts to roundtrip an authenticated request to Tidal
 func (t *TidalClient) Get(endpoint string, query url.Values) (*http.Response, error) {
 	t.Lock()
 	defer t.Unlock()
@@ -223,14 +225,14 @@ func (t *TidalClient) Creator(creatorID string) (creator *ObjectCreator, err err
 		tCreators := make([]*Object, len(tTrack.Artists))
 		for j := 0; j < len(tCreators); j++ {
 			objCreator := &ObjectCreator{
-					URI:  "tidal:artist:" + tTrack.Artists[j].ID.String(),
-					Name: tTrack.Artists[j].Name,
-				}
+				URI:  "tidal:artist:" + tTrack.Artists[j].ID.String(),
+				Name: tTrack.Artists[j].Name,
+			}
 			tCreators[j] = &Object{
-				URI: "tidal:artist:" + tTrack.Artists[j].ID.String(),
+				URI:      "tidal:artist:" + tTrack.Artists[j].ID.String(),
 				Type:     "creator",
 				Provider: "tidal",
-				Object: &jsontwo.RawMessage{},
+				Object:   &jsontwo.RawMessage{},
 			}
 			tCreators[j].Object.UnmarshalJSON(objCreator.JSON())
 		}
@@ -250,10 +252,10 @@ func (t *TidalClient) Creator(creatorID string) (creator *ObjectCreator, err err
 			Duration: duration,
 			Creators: tCreators,
 			Album: &Object{
-				URI:  "tidal:album:" + tTrack.Album.ID.String(),
+				URI:      "tidal:album:" + tTrack.Album.ID.String(),
 				Type:     "album",
 				Provider: "tidal",
-				Object: &jsontwo.RawMessage{},
+				Object:   &jsontwo.RawMessage{},
 			},
 		}
 		objAlbum := &ObjectAlbum{
@@ -265,7 +267,7 @@ func (t *TidalClient) Creator(creatorID string) (creator *ObjectCreator, err err
 			URI:      "tidal:track:" + tTopTracks.Items[i].ID.String(),
 			Type:     "stream",
 			Provider: "tidal",
-			Object: &jsontwo.RawMessage{},
+			Object:   &jsontwo.RawMessage{},
 		}
 		topTracks[i].Object.UnmarshalJSON(objStream.JSON())
 	}
@@ -273,7 +275,10 @@ func (t *TidalClient) Creator(creatorID string) (creator *ObjectCreator, err err
 	albumFilter := url.Values{}
 	albumFilter.Set("limit", tidalTracksItems)
 	err = t.GetJSON("artists/"+creatorID+"/albums", albumFilter, &tAlbums)
-	if err == nil && len(tAlbums.Items) > 0 {
+	if err != nil {
+		return nil, err
+	}
+	if len(tAlbums.Items) > 0 {
 		tCreator.Albums = append(tCreator.Albums, tAlbums.Items...)
 	}
 	albums := make([]*Object, len(tCreator.Albums))
@@ -284,17 +289,20 @@ func (t *TidalClient) Creator(creatorID string) (creator *ObjectCreator, err err
 			Name: tAlbum.Title,
 		}
 		albums[i] = &Object{
-			URI:  "tidal:album:" + tAlbum.ID.String(),
+			URI:      "tidal:album:" + tAlbum.ID.String(),
 			Type:     "album",
 			Provider: "tidal",
-			Object: &jsontwo.RawMessage{},
+			Object:   &jsontwo.RawMessage{},
 		}
 		albums[i].Object.UnmarshalJSON(objAlbum.JSON())
 	}
 	epsandsingles := TidalArtistAlbums{}
 	albumFilter.Set("filter", "EPSANDSINGLES")
 	err = t.GetJSON("artists/"+creatorID+"/albums", albumFilter, &epsandsingles)
-	if err == nil && len(epsandsingles.Items) > 0 {
+	if err != nil {
+		return nil, err
+	}
+	if len(epsandsingles.Items) > 0 {
 		tCreator.EPsAndSingles = append(tCreator.EPsAndSingles, epsandsingles.Items...)
 	}
 	singles := make([]*Object, len(tCreator.EPsAndSingles))
@@ -305,10 +313,10 @@ func (t *TidalClient) Creator(creatorID string) (creator *ObjectCreator, err err
 			Name: tSingle.Title,
 		}
 		singles[i] = &Object{
-			URI:  "tidal:album:" + tSingle.ID.String(),
+			URI:      "tidal:album:" + tSingle.ID.String(),
 			Type:     "album",
 			Provider: "tidal",
-			Object: &jsontwo.RawMessage{},
+			Object:   &jsontwo.RawMessage{},
 		}
 		singles[i].Object.UnmarshalJSON(objAlbum.JSON())
 	}
@@ -367,10 +375,10 @@ func (t *TidalClient) Album(albumID string) (album *ObjectAlbum, err error) {
 			Name: tAlbum.Artists[i].Name,
 		}
 		creators[i] = &Object{
-			URI:  "tidal:artist:" + tAlbum.Artists[i].ID.String(),
+			URI:      "tidal:artist:" + tAlbum.Artists[i].ID.String(),
 			Type:     "creator",
 			Provider: "tidal",
-			Object: &jsontwo.RawMessage{},
+			Object:   &jsontwo.RawMessage{},
 		}
 		creators[i].Object.UnmarshalJSON(objCreator.JSON())
 	}
@@ -378,7 +386,10 @@ func (t *TidalClient) Album(albumID string) (album *ObjectAlbum, err error) {
 	albumFilter := url.Values{}
 	albumFilter.Set("limit", tidalTracksItems)
 	err = t.GetJSON("albums/"+albumID+"/items", albumFilter, &tracks)
-	if err == nil && len(tracks.Items) > 0 {
+	if err != nil {
+		return nil, err
+	}
+	if len(tracks.Items) > 0 {
 		for _, item := range tracks.Items {
 			tAlbum.Tracks = append(tAlbum.Tracks, item.Item)
 		}
@@ -399,10 +410,10 @@ func (t *TidalClient) Album(albumID string) (album *ObjectAlbum, err error) {
 				Name: tTrack.Artists[j].Name,
 			}
 			tCreators[j] = &Object{
-				URI:  "tidal:artist:" + tTrack.Artists[j].ID.String(),
+				URI:      "tidal:artist:" + tTrack.Artists[j].ID.String(),
 				Type:     "creator",
 				Provider: "tidal",
-				Object: &jsontwo.RawMessage{},
+				Object:   &jsontwo.RawMessage{},
 			}
 			tCreators[j].Object.UnmarshalJSON(objCreator.JSON())
 		}
@@ -425,7 +436,7 @@ func (t *TidalClient) Album(albumID string) (album *ObjectAlbum, err error) {
 				URI:      "tidal:album:" + albumID,
 				Type:     "album",
 				Provider: "tidal",
-				Object: &jsontwo.RawMessage{},
+				Object:   &jsontwo.RawMessage{},
 			},
 		}
 		objAlbum := &ObjectAlbum{
@@ -438,7 +449,7 @@ func (t *TidalClient) Album(albumID string) (album *ObjectAlbum, err error) {
 			URI:      "tidal:track:" + tTrack.ID.String(),
 			Type:     "stream",
 			Provider: "tidal",
-			Object: &jsontwo.RawMessage{},
+			Object:   &jsontwo.RawMessage{},
 		}
 		discs[0].Streams[i].Object.UnmarshalJSON(objStream.JSON())
 	}
@@ -459,17 +470,36 @@ func (t *TidalClient) Album(albumID string) (album *ObjectAlbum, err error) {
 
 // TidalTrack holds a Tidal track
 type TidalTrack struct {
-	//Artist       TidalArtist    `json:"artist"`
-	Artists      []TidalArtist  `json:"artists,omitempty"`
-	Album        TidalAlbum     `json:"album,omitempty"`
-	Title        string         `json:"title"`
-	ID           jsontwo.Number `json:"id"`
-	Explicit     bool           `json:"explicit,omitempty"`
-	Copyright    string         `json:"copyright,omitempty"`
-	Popularity   int            `json:"popularity,omitempty"`
-	TrackNumber  jsontwo.Number `json:"trackNumber,omitempty"`
-	Duration     jsontwo.Number `json:"duration"`
-	AudioQuality string         `json:"audioQuality"`
+	ID                   jsontwo.Number `json:"id"`
+	Title                string         `json:"title"`
+	Duration             jsontwo.Number `json:"duration"`
+	ReplayGain           jsontwo.Number `json:"replayGain"`
+	Peak                 jsontwo.Number `json:"peak"`
+	AllowStreaming       bool           `json:"allowStreaming"`
+	StreamReady          bool           `json:"streamReady"`
+	AdSupportedStreaming bool           `json:"adSupportedStreaming"`
+	StreamStartDate      string         `json:"streamStartDate"`
+	PremiumStreamingOnly bool           `json:"premiumStreamingOnly"`
+	TrackNumber          jsontwo.Number `json:"trackNumber,omitempty"`
+	VolumeNumber         jsontwo.Number `json:"volumeNumber"`
+	Version              string         `json:"version,omitempty"`
+	Popularity           int            `json:"popularity,omitempty"`
+	Copyright            string         `json:"copyright,omitempty"`
+	TidalURL             string         `json:"url"`
+	ISRC                 string         `json:"isrc"`
+	Editable             bool           `json:"editable"`
+	Explicit             bool           `json:"explicit,omitempty"`
+	AudioQuality         string         `json:"audioQuality"`
+	AudioModes           []string       `json:"audioModes"`
+	MediaMetadata        struct {
+		Tags []string `json:"tags,omitempty"`
+	} `json:"mediaMetadata,omitempty"`
+	Artist  TidalArtist   `json:"artist"`
+	Artists []TidalArtist `json:"artists,omitempty"`
+	Album   TidalAlbum    `json:"album,omitempty"`
+	Mixes   struct {
+		TrackMix string `json:"TRACK_MIX,omitempty"`
+	} `json:"mixes,omitempty"`
 }
 
 // Stream gets a track object from Tidal
@@ -486,10 +516,10 @@ func (t *TidalClient) Stream(trackID string) (stream *ObjectStream, err error) {
 			Name: tTrack.Artists[i].Name,
 		}
 		creators[i] = &Object{
-			URI:  "tidal:artist:" + tTrack.Artists[i].ID.String(),
+			URI:      "tidal:artist:" + tTrack.Artists[i].ID.String(),
 			Type:     "creator",
 			Provider: "tidal",
-			Object: &jsontwo.RawMessage{},
+			Object:   &jsontwo.RawMessage{},
 		}
 		creators[i].Object.UnmarshalJSON(objCreator.JSON())
 	}
@@ -509,10 +539,10 @@ func (t *TidalClient) Stream(trackID string) (stream *ObjectStream, err error) {
 		Name:     tTrack.Title,
 		Creators: creators,
 		Album: &Object{
-			URI:  "tidal:album:" + tTrack.Album.ID.String(),
+			URI:      "tidal:album:" + tTrack.Album.ID.String(),
 			Type:     "album",
 			Provider: "tidal",
-			Object: &jsontwo.RawMessage{},
+			Object:   &jsontwo.RawMessage{},
 		},
 		Duration: duration,
 		Formats:  formats,
@@ -543,10 +573,10 @@ type TidalPlaylist struct {
 	Creator        struct {
 		ID jsontwo.Number `json:"id"`
 	} `json:"creator"`
-	Description string         `json:"description"`
-	Duration    jsontwo.Number `json:"duration"`
-	//LastUpdated     time.Time      `json:"lastUpdated"`
-	//Created         time.Time      `json:"created"`
+	Description     string         `json:"description"`
+	Duration        jsontwo.Number `json:"duration"`
+	LastUpdated     string         `json:"lastUpdated"`
+	Created         string         `json:"created"`
 	Type            string         `json:"type"` //USER
 	PublicPlaylist  bool           `json:"publicPlaylist"`
 	URL             string         `json:"url"`
@@ -554,8 +584,8 @@ type TidalPlaylist struct {
 	Popularity      jsontwo.Number `json:"popularity"`
 	SquareImage     string         `json:"squareImage"`
 	PromotedArtists []TidalArtist  `json:"promotedArtists"`
-	//LastItemAddedAt time.Time      `json:"lastItemAddedAt"`
-	Tracks []TidalTrack `json:"tracks,omitempty"`
+	LastItemAddedAt string         `json:"lastItemAddedAt"`
+	Tracks          []TidalTrack   `json:"tracks,omitempty"`
 }
 
 // TidalPlaylistTracks holds a Tidal Playlist's track list
@@ -592,17 +622,18 @@ func (t *TidalClient) GetVideo(videoID string) (video *TidalVideo, err error) {
 	return video, err
 }
 
+// TidalLyrics holds lyric data for a Tidal track
 type TidalLyrics struct {
-	TrackID jsontwo.Number `json:"trackId"`
-	Provider string `json:"lyricsProvider"`
-	ProviderTrackID jsontwo.Number `json:"providerCommontrackId"`
+	TrackID          jsontwo.Number `json:"trackId"`
+	Provider         string         `json:"lyricsProvider"`
+	ProviderTrackID  jsontwo.Number `json:"providerCommontrackId"`
 	ProviderLyricsID jsontwo.Number `json:"providerLyricsId"`
-	RightToLeft bool `json:"isRightToLeft"`
-	Text string `json:"text"`
-	Subtitles string `json:"subtitles"`
+	RightToLeft      bool           `json:"isRightToLeft"`
+	Text             string         `json:"text"`
+	Subtitles        string         `json:"subtitles"`
 }
 
-// GetLyrics gets a lyrics object from Tidal
+// Transcribe fills in a lyrics object from Tidal
 func (t *TidalClient) Transcribe(stream *ObjectStream) (err error) {
 	lyrics := &TidalLyrics{}
 	uri := fmt.Sprintf("tracks/%s/lyrics", stream.ID)
@@ -626,12 +657,12 @@ func (t *TidalClient) Transcribe(stream *ObjectStream) (err error) {
 
 	lines := strings.Split(text, "\n")
 	objTranscript := &ObjectTranscript{
-		RightToLeft: lyrics.RightToLeft,
-		Provider: lyrics.Provider,
+		RightToLeft:      lyrics.RightToLeft,
+		Provider:         lyrics.Provider,
 		ProviderLyricsID: lyrics.ProviderLyricsID.String(),
-		ProviderTrackID: lyrics.ProviderTrackID.String(),
-		TimeSynced: false,
-		Lines: make([]*ObjectTranscriptLine, 0),
+		ProviderTrackID:  lyrics.ProviderTrackID.String(),
+		TimeSynced:       false,
+		Lines:            make([]*ObjectTranscriptLine, 0),
 	}
 	for i := 0; i < len(lines); i++ {
 		line := lines[i]
@@ -643,7 +674,7 @@ func (t *TidalClient) Transcribe(stream *ObjectStream) (err error) {
 			txt := strings.Split(line, "] ")[1]
 			objTranscript.Lines = append(objTranscript.Lines, &ObjectTranscriptLine{
 				StartTimeMs: startTimeMs,
-				Text: txt,
+				Text:        txt,
 			})
 		} else {
 			objTranscript.Lines = append(objTranscript.Lines, &ObjectTranscriptLine{Text: line})
@@ -659,6 +690,7 @@ func (t *TidalClient) Transcribe(stream *ObjectStream) (err error) {
 	return
 }
 
+// StreamFormat roundtrips a stream attempt for the given HTTP session
 func (t *TidalClient) StreamFormat(w http.ResponseWriter, r *http.Request, stream *ObjectStream, format int) (err error) {
 	objFormat := stream.GetFormat(format)
 	if objFormat == nil {
@@ -706,8 +738,8 @@ func (t *TidalClient) GetAudioStream(trackID, quality string) (manifest *TidalAu
 	if err != nil {
 		return nil, err
 	}
-	manifest.Quality = quality
-	manifest.Codecs = "flac"
+	manifest.AudioQuality = quality
+	manifest.Codec = "flac"
 	manifest.MimeType = "audio/flac"
 	return manifest, nil
 
@@ -781,11 +813,17 @@ type TidalAudioStream struct {
 
 // TidalAudioManifest holds a Tidal audio stream's metadata manifest
 type TidalAudioManifest struct {
-	Quality        string   `json:"-"`
-	MimeType       string   `json:"mimeType"`
-	Codecs         string   `json:"codecs"`
-	EncryptionType string   `json:"encryptionType"`
-	URLs           []string `json:"urls"`
+	URLs               []string       `json:"urls"`
+	TrackID            jsontwo.Number `json:"trackId"`
+	AssetPresentation  string         `json:"assetPresentation"`
+	AudioQuality       string         `json:"audioQuality"`
+	AudioMode          string         `json:"audioMode"`
+	StreamingSessionID string         `json:"streamingSessionId,omitempty"`
+	Codec              string         `json:"codec"`
+	SecurityType       string         `json:"securityType,omitempty"`
+	SecurityToken      string         `json:"securityToken,omitempty"`
+	MimeType           string         `json:"mimeType,omitempty"`
+	Codecs             []string       `json:"codecs,omitempty"`
 }
 
 // TidalAudioDashXML was generated 2023-04-19 23:21:39 by https://xml-to-go.github.io/ in Ukraine.
@@ -836,42 +874,43 @@ type TidalAudioDashXML struct {
 	} `xml:"Period" json:"period,omitempty"`
 }
 
+// FormatList returns all available formats for Tidal
 func (t *TidalClient) FormatList() (formats []*ObjectFormat) {
 	formats = []*ObjectFormat{
-		&ObjectFormat{
-			ID: 0,
-			Name: "HI_RES",
-			Format: "flac",
-			Codec: "flac",
-			BitRate: 9216000,
-			BitDepth: 24,
+		{
+			ID:         0,
+			Name:       "HI_RES",
+			Format:     "flac",
+			Codec:      "flac",
+			BitRate:    9216000,
+			BitDepth:   24,
 			SampleRate: 96000,
 		},
-		&ObjectFormat{
-			ID: 1,
-			Name: "LOSSLESS",
-			Format: "flac",
-			Codec: "flac",
-			BitRate: 1411000,
-			BitDepth: 24,
+		{
+			ID:         1,
+			Name:       "LOSSLESS",
+			Format:     "flac",
+			Codec:      "flac",
+			BitRate:    1411000,
+			BitDepth:   24,
 			SampleRate: 44100,
 		},
-		&ObjectFormat{
-			ID: 2,
-			Name: "HIGH",
-			Format: "flac",
-			Codec: "flac",
-			BitRate: 320000,
-			BitDepth: 16,
+		{
+			ID:         2,
+			Name:       "HIGH",
+			Format:     "flac",
+			Codec:      "flac",
+			BitRate:    320000,
+			BitDepth:   16,
 			SampleRate: 44100,
 		},
-		&ObjectFormat{
-			ID: 3,
-			Name: "LOW",
-			Format: "flac",
-			Codec: "flac",
-			BitRate: 96000,
-			BitDepth: 16,
+		{
+			ID:         3,
+			Name:       "LOW",
+			Format:     "flac",
+			Codec:      "flac",
+			BitRate:    96000,
+			BitDepth:   16,
 			SampleRate: 44100,
 		},
 	}
@@ -928,12 +967,17 @@ type TidalVideoManifest struct {
 	return formats
 }*/
 
+// ArtworkImg retrieves a JPG artwork given a cover ID and acceptable size list
 func (t *TidalClient) ArtworkImg(coverID string, sizes []int) []*ObjectArtwork {
 	return t.Artwork(coverID, tidalImgURL, "jpg", sizes)
 }
+
+// ArtworkVid retrieves an MP4 artwork given a cover ID and acceptable size list
 func (t *TidalClient) ArtworkVid(coverID string, sizes []int) []*ObjectArtwork {
 	return t.Artwork(coverID, tidalVidURL, "mp4", sizes)
 }
+
+// Artwork handles the underlying artwork fetching
 func (t *TidalClient) Artwork(coverID, coverURL, fileType string, sizes []int) (artworks []*ObjectArtwork) {
 	if coverID == "" || fileType == "" {
 		return nil
