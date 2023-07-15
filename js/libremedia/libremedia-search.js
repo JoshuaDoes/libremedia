@@ -29,5 +29,5 @@ function createSearchBar() {
 }
 
 function refreshQuery() {
-	query = $("#searchbox").val();
+	query = searchbox.value;
 }

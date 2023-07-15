@@ -259,7 +259,8 @@ async function playNext() {
 	//If end of queue, we're done!
 	if (queueLeft == 0) {
 		//console.log("Nothing up next!");
-		updateAudioPlayer(null); //TODO: Destroy audio player
+		updateAudioPlayer(null);
+		queue = []; //Clear the queue now that we're finished
 		return;
 	}
 	if (repeat == 0)
