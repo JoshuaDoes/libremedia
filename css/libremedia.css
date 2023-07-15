@@ -46,13 +46,14 @@ body {
 }
 
 #nav {
-  position: fixed;
-  bottom: 0;
+  position: relative;
   margin: 15px;
+  left: 0;
+  width: fit-content;
   display: block;
   text-align: left;
   color: rgb(var(--theme-text));
-  backdrop-filter: blur(3px) brightness(75%) saturate(150%);
+  pointer-events: auto;
 }
 
 #results {
@@ -141,6 +142,8 @@ td {
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
+  width: 100vw;
+  pointer-events: auto;
 }
 
 #infobar #hidden {
@@ -179,7 +182,7 @@ td {
 #bottomView {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  pointer-events: none;
 }
 
 #notification {
