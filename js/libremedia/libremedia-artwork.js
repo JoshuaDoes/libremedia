@@ -17,7 +17,7 @@ function setBgImg(url) {
 
 function setBgStream(stream) {
 	if (stream.album.object.artworks != null && stream.album.object.artworks.length > 0) {
-		var selbg = stream.album.object.artworks.length-1;
+		var selbg = stream.album.object.artworks.length - 1;
 		if (selbg > 4) {
 			selbg = 4;
 		}
@@ -31,7 +31,7 @@ function resetBgImg() {
 	var newbg = '';
 	if (nowPlaying != null) {
 		if (nowPlaying.album.object.artworks != null) {
-			var selbg = nowPlaying.album.object.artworks.length-1;
+			var selbg = nowPlaying.album.object.artworks.length - 1;
 			if (selbg > 4) {
 				selbg = 4;
 			}

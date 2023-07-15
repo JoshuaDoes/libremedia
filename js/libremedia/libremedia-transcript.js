@@ -61,7 +61,7 @@ function lyricScroller() {
 	//console.log("Auto-scroll is not paused");
 
 	if (nowPlayingTiming.length > 0) {
-		var curTime = player.currentTime*1000;
+		var curTime = player.currentTime * 1000;
 		var lyric = lastLyric;
 		if (lastLyric > -1) {
 			for (let i = lastLyric; i < nowPlayingTiming.length; i++) {
@@ -95,7 +95,7 @@ function lyricSeek(lyric) {
 		var line = nowPlayingTiming[lyric];
 		startTimeMs = line[0];
 	}
-	var startTime = Math.floor(startTimeMs/1000);
+	var startTime = Math.floor(startTimeMs / 1000);
 	//console.log("Seeking to timestamp " + startTime);
 	player.currentTime = startTime;
 	timer.innerHTML = secondsTimestamp(player.currentTime) + " / " + secondsTimestamp(player.duration);

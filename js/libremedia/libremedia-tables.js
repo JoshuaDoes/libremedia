@@ -1,6 +1,6 @@
 function tblStream(provider, stream) {
 	//console.log(stream);
-	
+
 	var html = '<td><div id="stream"><a href="/stream?uri=' + stream.uri + '" data-navigo>';
 	if (stream.name !== "") {
 		html += stream.name;
@@ -30,7 +30,7 @@ function tblStream(provider, stream) {
 	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-plus"></i></a></div></td>';
 
 	if (stream.album.object.artworks != null) {
-		var selbg = stream.album.object.artworks.length-1;
+		var selbg = stream.album.object.artworks.length - 1;
 		if (selbg > 4) {
 			selbg = 4;
 		}
@@ -42,6 +42,7 @@ function tblStream(provider, stream) {
 
 	return html;
 }
+
 function tblStreams(streams) {
 	html = '<tr><th>Streams</th><th>🕑</th></tr>'
 	for (let i = 0; i < streams.length; i++) {
@@ -56,7 +57,7 @@ function tblCreator(provider, creator) {
 	html += '<td colspan="5"><div id="creator"><a href="/creator?uri=' + creator.uri + '" data-navigo>' + creator.name + '</a></div></td>';
 
 	if (creator.artworks != null) {
-		var selbg = creator.artworks.length-1;
+		var selbg = creator.artworks.length - 1;
 		if (selbg > 4) {
 			selbg = 4;
 		}
@@ -68,6 +69,7 @@ function tblCreator(provider, creator) {
 
 	return html;
 }
+
 function tblCreators(creators) {
 	var html = '<tr><th colspan="5">Creators</th></tr>';
 	for (let i = 0; i < creators.length; i++) {
@@ -76,6 +78,7 @@ function tblCreators(creators) {
 	}
 	return html;
 }
+
 function tblRelated(creators) {
 	var html = '<tr><th colspan="5">Related</th></tr>';
 	for (let i = 0; i < creators.length; i++) {
@@ -84,6 +87,7 @@ function tblRelated(creators) {
 	}
 	return html;
 }
+
 function tblStreamTop(provider, stream) {
 	//console.log(stream);
 	var refresh = '<small>refresh to try again</small>';
@@ -110,7 +114,7 @@ function tblStreamTop(provider, stream) {
 	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-plus"></i></a></div></td>';
 
 	if (stream.album.object.artworks != null) {
-		var selbg = stream.album.object.artworks.length-1;
+		var selbg = stream.album.object.artworks.length - 1;
 		if (selbg > 4) {
 			selbg = 4;
 		}
@@ -122,6 +126,7 @@ function tblStreamTop(provider, stream) {
 
 	return html;
 }
+
 function tblStreamsTop(streams) {
 	var html = '<tr><th>Top Streams</th><th>🕑</th></tr>';
 	for (let i = 0; i < streams.length; i++) {
@@ -140,7 +145,7 @@ function tblAlbum(provider, album) {
 	html += '</a></div></td>';
 
 	if (album.artworks != null) {
-		var selbg = album.artworks.length-1;
+		var selbg = album.artworks.length - 1;
 		if (selbg > 4) {
 			selbg = 4;
 		}
@@ -152,6 +157,7 @@ function tblAlbum(provider, album) {
 
 	return html;
 }
+
 function tblAlbums(albums) {
 	var html = '<tr><th colspan="5">Albums</th></tr>';
 	for (let i = 0; i < albums.length; i++) {
@@ -160,6 +166,7 @@ function tblAlbums(albums) {
 	}
 	return html;
 }
+
 function tblSingles(albums) {
 	var html = '<tr><th colspan="5">Singles & EPs</th></tr>';
 	for (let i = 0; i < albums.length; i++) {
@@ -168,6 +175,7 @@ function tblSingles(albums) {
 	}
 	return html;
 }
+
 function tblAppearances(albums) {
 	var html = '<tr><th colspan="5">Appears On</th></tr>';
 	for (let i = 0; i < albums.length; i++) {
@@ -176,6 +184,7 @@ function tblAppearances(albums) {
 	}
 	return html;
 }
+
 function tblStreamAlbum(provider, stream, number) {
 	var refresh = '<small>refresh to try again</small>';
 	var html = '<td><div id="stream"><a href="/stream?uri=' + stream.uri + '" data-navigo>';
@@ -195,7 +204,7 @@ function tblStreamAlbum(provider, stream, number) {
 	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-plus"></i></a></div></td>';
 
 	if (stream.album.object.artworks != null) {
-		var selbg = stream.album.object.artworks.length-1;
+		var selbg = stream.album.object.artworks.length - 1;
 		if (selbg > 4) {
 			selbg = 4;
 		}

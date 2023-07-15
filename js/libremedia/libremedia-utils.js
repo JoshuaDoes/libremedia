@@ -13,12 +13,15 @@ function textExpander() {
 function elementHide(element) {
 	element.style.display = "none";
 }
+
 function elementShow(element) {
 	element.style.display = "inline";
 }
+
 function elementHidden(element) {
 	return (element.style.display === "none");
 }
+
 function elementVisible(element) {
 	return !elementHidden(element);
 }
@@ -46,7 +49,7 @@ function sanitizeWhitespace(input) {
 	return output;
 }
 
-function secondsTimestamp(seconds) {   
+function secondsTimestamp(seconds) {
 	// Hours, minutes and seconds
 	var hrs = ~~(seconds / 3600);
 	var mins = ~~((seconds % 3600) / 60);

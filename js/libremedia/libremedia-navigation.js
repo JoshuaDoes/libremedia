@@ -10,7 +10,9 @@ var navMap = {
 }
 
 function navigoResolve() {
-	navigo = new Navigo("/", { hash: true });
+	navigo = new Navigo("/", {
+		hash: true
+	});
 	navigo
 		.on("/search", (match) => {
 			pageObject = [];
@@ -46,7 +48,7 @@ function navigoResolve() {
 			//console.log("Nothing to do!");
 			render(match, "");
 		})
-	.resolve();
+		.resolve();
 }
 
 function refreshElements() {
@@ -194,7 +196,7 @@ function pageCapture(match) {
 }
 
 function pageRelease() {
-	if (pageNum-1 < 0) {
+	if (pageNum - 1 < 0) {
 		//console.log("No way backward!");
 		return;
 	}
@@ -213,7 +215,9 @@ function pageImpose(page) {
 	if (page == null) {
 		return;
 	}
-	navigo.navigate(page[0], {callHandler: true});
+	navigo.navigate(page[0], {
+		callHandler: true
+	});
 	lastPageUrl = page[0];
 	pageObject = page[1];
 	//render(null, page[1]);

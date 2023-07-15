@@ -4,14 +4,14 @@ function get(link) {
 	return new Promise((resolve, reject) => {
 		const HttpReq = new XMLHttpRequest();
 		HttpReq.open("GET", link);
-		HttpReq.onload = function () {
+		HttpReq.onload = function() {
 			if (HttpReq.status === 200) {
 				resolve(HttpReq.responseText);
 			} else {
 				reject(new Error(HttpReq.statusText));
 			}
 		};
-		HttpReq.onerror = function () {
+		HttpReq.onerror = function() {
 			reject(new Error("Network error"));
 		};
 		HttpReq.send();

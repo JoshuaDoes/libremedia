@@ -22,9 +22,11 @@ function downloadStream(match) {
 		streamName += album;
 	displayNotification("Downloading:<br />" + streamName, 4000);
 }
+
 function downloadAlbum(albumURI) {
 	//console.log("Not implemented yet! TODO: Download " + albumURI + " as ZIP");
 }
+
 function downloadDiscography(creatorURI) {
 	//console.log("Not implemented yet! TODO: Download " + creatorURI + " as ZIP");
 }

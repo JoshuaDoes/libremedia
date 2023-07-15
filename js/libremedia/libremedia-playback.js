@@ -142,7 +142,7 @@ function queueSet(pageQueue) {
 		if (pageQueue[i].uri == nowPlaying.uri) {
 			var pageQueueFront = pageQueue.slice(0, i);
 			//console.log(pageQueueFront);
-			var pageQueueBack = pageQueue.slice(i+1, pageQueue.length);
+			var pageQueueBack = pageQueue.slice(i + 1, pageQueue.length);
 			//console.log(pageQueueBack);
 			pageQueue = pageQueueBack.concat(pageQueueFront);
 			//console.log(pageQueue);
@@ -161,15 +161,15 @@ function queueSet(pageQueue) {
 	//Build the new queue, pushing the up next section to the front
 	var newQueue = [];
 	if (queueStart == 0) {
-		newQueue = queue.slice(0, queueEnd+1);
+		newQueue = queue.slice(0, queueEnd + 1);
 	} else {
-		newQueue = queue.slice(queueStart, queue.length-queueStart);
+		newQueue = queue.slice(queueStart, queue.length - queueStart);
 		if (queueEnd <= queueStart) {
-			newQueue = newQueue.concat(queue.slice(0, queueEnd+1));
+			newQueue = newQueue.concat(queue.slice(0, queueEnd + 1));
 		}
 	}
 	queueStart = 0;
-	queueEnd = newQueue.length-1;
+	queueEnd = newQueue.length - 1;
 	queue = newQueue.concat(pageQueue);
 	queueLeft += newQueue.length;
 }
@@ -185,7 +185,7 @@ function queueAdd(stream) {
 		queueEnd = 0;
 		return;
 	}
-	queue.splice(queueEnd+1, 0, stream);
+	queue.splice(queueEnd + 1, 0, stream);
 	queueEnd++;
 	//console.log("queueAdd+");
 	//console.log(queue);
@@ -212,7 +212,7 @@ function queueNext(stream) {
 	//console.log("queueNext-");
 	//console.log(queue);
 	queue.splice(0, 0, stream);
-	if (queueEnd == queue.length-1) {
+	if (queueEnd == queue.length - 1) {
 		queueEnd = 0;
 	} else {
 		queueEnd++;
@@ -227,10 +227,10 @@ function queueClear() {
 		return;
 	}
 	if (queueEnd > queueStart) {
-		queue.splice(queueStart, queueEnd+1);
+		queue.splice(queueStart, queueEnd + 1);
 	} else {
-		queue.splice(queueStart, queue.length-queueStart-1);
-		queue.splice(0, queueEnd+1);
+		queue.splice(queueStart, queue.length - queueStart - 1);
+		queue.splice(0, queueEnd + 1);
 	}
 	queueStart = -1;
 	queueEnd = -1;
@@ -320,11 +320,11 @@ async function playPrev() {
 	queue.splice(0, 0, nowPlaying);
 
 	//Migrate last queue entry into nowPlaying
-	nowPlaying = queue[queue.length-1];
-	queue.splice(queue.length-1, 1);
+	nowPlaying = queue[queue.length - 1];
+	queue.splice(queue.length - 1, 1);
 
 	if (queueEnd > -1 && queueStart > -1) {
-		if (queueStart == queue.length-1) {
+		if (queueStart == queue.length - 1) {
 			queueStart = -1;
 		}
 		queueStart++;
@@ -342,20 +342,20 @@ async function playPrev() {
 function toggleRepeat() {
 	queueLeft = queue.length; //Reset the amount of queue entries left to reflect the remaining queue, even if skipped ahead
 	switch (repeat) {
-	case 0:
-		//console.log("Repeating queue");
-		repeat = 1;
-		buttonRepeat.innerHTML = '<i class="fa-solid fa-repeat"></i>';
-		break;
-	case 1:
-		//console.log("Repeating now playing");
-		repeat = 2;
-		buttonRepeat.innerHTML = '<i class="fa-solid fa-hourglass-start"></i>';
-		break;
-	case 2:
-		//console.log("Not repeating");
-		repeat = 0;
-		buttonRepeat.innerHTML = '<i class="fa-solid fa-right-long"></i>';
-		break;
+		case 0:
+			//console.log("Repeating queue");
+			repeat = 1;
+			buttonRepeat.innerHTML = '<i class="fa-solid fa-repeat"></i>';
+			break;
+		case 1:
+			//console.log("Repeating now playing");
+			repeat = 2;
+			buttonRepeat.innerHTML = '<i class="fa-solid fa-hourglass-start"></i>';
+			break;
+		case 2:
+			//console.log("Not repeating");
+			repeat = 0;
+			buttonRepeat.innerHTML = '<i class="fa-solid fa-right-long"></i>';
+			break;
 	}
 }
