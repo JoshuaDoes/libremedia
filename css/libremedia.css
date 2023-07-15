@@ -69,7 +69,7 @@ body {
 
 table {
   margin: 10px;
-  padding-top: 45px;
+  padding-top: 80px;
   backdrop-filter: blur(5px) brightness(50%) saturate(150%);
   border-collapse: separate;
   border-spacing: 5px;
@@ -82,7 +82,7 @@ table {
 
 th {
   text-align: center;
-  height: 60px;
+  height: 40px;
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
