@@ -47,11 +47,11 @@ body {
 
 #nav {
   position: fixed;
+  bottom: 0;
   margin: 15px;
   display: block;
   text-align: left;
   color: rgb(var(--theme-text));
-  bottom: 0;
   backdrop-filter: blur(3px) brightness(75%) saturate(150%);
 }
 
@@ -130,10 +130,6 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
   flex-direction: column;
   text-align: center;
   padding-top: 5px;
@@ -176,19 +172,26 @@ td {
   text-align: center;
   margin-top: 30px;
   /* background-color: rgba(var(--theme-background-overlay)); */
-  backdrop-filter: blur(3px) brightness(75%) saturate(150%);
+  backdrop-filter: blur(3px) brightness(75%);
   font-size: 3em;
 }
 
+#bottomView {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
 #notification {
+  position: relative;
   text-align: center;
-  margin-top: 10px;
   /* background-color: rgba(var(--theme-background-overlay)); */
-  backdrop-filter: blur(5px) brightness(20%) saturate(150%);
+  backdrop-filter: blur(5px) brightness(50%);
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
   font-size: 2em;
+  width: 100%;
 }
 
 #stream a {

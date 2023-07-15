@@ -94,15 +94,17 @@ async function updateAudioPlayer(streamURI) {
 		const duration = stream.duration / 1000.0;
 
 		displayNotification("Now playing:<br />" + name + creator + album, 2000);
-		metadata.innerHTML = name + creator + album;
-		if (albumObj.datetime != null)
-			metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
 		player.src = "/v1/stream/" + streamURI;
 		player.duration = duration;
-		//buttonDownload.innerHTML = '<a href="/download?uri=' + streamURI + '" data-navigo><i class="fa-solid fa-download"></i></a>';
-		buttonTranscript.innerHTML = '<a href="/transcript" data-navigo><i class="fa-solid fa-music"></i></a>';
-		timer.innerHTML = "0:00 / " + secondsTimestamp(duration);
-		navigo.updatePageLinks();
+		if (createdAudioPlayer) {
+			metadata.innerHTML = name + creator + album;
+			if (albumObj.datetime != null)
+				metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
+			//buttonDownload.innerHTML = '<a href="/download?uri=' + streamURI + '" data-navigo><i class="fa-solid fa-download"></i></a>';
+			buttonTranscript.innerHTML = '<a href="/transcript" data-navigo><i class="fa-solid fa-music"></i></a>';
+			timer.innerHTML = "0:00 / " + secondsTimestamp(duration);
+			navigo.updatePageLinks();
+		}
 
 		if (lastPageUrl == "transcript" || lastPageUrl == "transcript?uri=" + stream.uri) {
 			await displayTranscript(null);

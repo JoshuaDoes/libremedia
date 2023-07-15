@@ -129,7 +129,6 @@ function toggleVisibility() {
 	if (visibility) {
 		//console.log("Hiding elements");
 		visibility = false;
-		interruptNotification = true;
 		buttonVisibility.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
 		infobar.setAttribute("id", "infobar hidden");
 		searchbar.setAttribute("id", "search hidden");
@@ -144,7 +143,6 @@ function toggleVisibility() {
 	} else {
 		//console.log("Showing elements");
 		visibility = true;
-		interruptNotification = false;
 		buttonVisibility.innerHTML = '<i class="fa-solid fa-eye"></i>';
 		infobar.setAttribute("id", "infobar");
 		searchbar.setAttribute("id", "search");
