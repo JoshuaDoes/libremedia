@@ -462,6 +462,7 @@ func (t *TidalClient) Album(albumID string) (album *ObjectAlbum, err error) {
 		Label:      tAlbum.Copyright,
 		Artworks:   make([]*ObjectArtwork, 0),
 		DateTime:   tAlbum.ReleaseDate,
+		Explicit:   tAlbum.Explicit,
 	}
 	album.Artworks = append(album.Artworks, t.ArtworkImg(tAlbum.Cover, tidalSizesAlbum)...)
 	album.Artworks = append(album.Artworks, t.ArtworkVid(tAlbum.VideoCover, tidalSizesAlbum)...)
@@ -544,6 +545,7 @@ func (t *TidalClient) Stream(trackID string) (stream *ObjectStream, err error) {
 			Provider: "tidal",
 			Object:   &jsontwo.RawMessage{},
 		},
+		Explicit: tTrack.Explicit,
 		Duration: duration,
 		Formats:  formats,
 	}

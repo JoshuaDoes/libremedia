@@ -6,9 +6,9 @@ import (
 
 // ObjectAlbum holds metadata about an album
 type ObjectAlbum struct {
-	Discs       []*ObjectDisc    `json:"discs,omitempty"`       //The discs in this album
-	Copyrights  []string         `json:"copyrights,omitempty"`  //The copyrights that apply to this album
-	Label       string           `json:"label,omitempty"`       //The record label or studio that released this album
+	Discs       []*ObjectDisc    `json:"discs,omitempty"`      //The discs in this album
+	Copyrights  []string         `json:"copyrights,omitempty"` //The copyrights that apply to this album
+	Label       string           `json:"label,omitempty"`      //The record label or studio that released this album
 	Provider    string           `json:"provider,omitempty"`
 	URI         string           `json:"uri,omitempty"`         //The URI that refers to this album object
 	Name        string           `json:"name,omitempty"`        //The name of this album
@@ -16,6 +16,7 @@ type ObjectAlbum struct {
 	Artworks    []*ObjectArtwork `json:"artworks,omitempty"`    //The artworks for this album
 	DateTime    string           `json:"datetime,omitempty"`    //The release date of this album
 	Creators    []*Object        `json:"creators,omitempty"`    //The creators of this album
+	Explicit    bool             `json:"explicit,omitempty"`    //Whether or not this album contains explicit tracks
 }
 
 func (obj *ObjectAlbum) JSON() []byte {
