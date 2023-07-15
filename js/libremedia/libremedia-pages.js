@@ -171,6 +171,9 @@ async function displayAlbum(match) {
 		html += '<tr><th colspan="2"><div id="creator"><a href="/creator?uri=' + album.object.creators[0].uri + '" data-navigo>' + album.object.creators[0].object.name + '</a></div></th></tr>';
 	}
 	html += '<tr><th colspan="2"><div id="album"><a href="/album?uri=' + album.uri + '" data-navigo>' + album.object.name;
+	if (album.object.explicit) {
+		html += ' <i class="fa-solid fa-ban"></i>';
+	}
 	if (album.object.datetime != null) {
 		html += '<br /><div id="datetime">(' + album.object.datetime + ')</div>';
 	}

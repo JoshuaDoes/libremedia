@@ -56,6 +56,10 @@ var createdSearchBar = false;
 var createdAudioPlayer = false;
 var interruptNotification = false;
 
+//Static icons and texts
+var refresh = '<small>refresh to try again</small>';
+var explicit = '<i class="fa-solid fa-ban"></i>';
+
 $(document).ready(function() {
 	console.log("Setting up libremedia...");
 	refreshElements();

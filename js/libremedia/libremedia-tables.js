@@ -1,11 +1,14 @@
 function tblStream(provider, stream) {
 	//console.log(stream);
-	var refresh = '<small>refresh to try again</small>';
+	
 	var html = '<td><div id="stream"><a href="/stream?uri=' + stream.uri + '" data-navigo>';
 	if (stream.name !== "") {
 		html += stream.name;
 	} else {
 		html += refresh;
+	}
+	if (stream.explicit) {
+		html += ' ' + explicit;
 	}
 	html += '</a></div><br />';
 	if (stream.creators != null) {
@@ -90,6 +93,9 @@ function tblStreamTop(provider, stream) {
 	} else {
 		html += refresh;
 	}
+	if (stream.explicit) {
+		html += ' ' + explicit;
+	}
 	html += '</a></div><br />';
 	if (stream.album != null) {
 		html += '<div id="album"><a href="/album?uri=' + stream.album.object.uri + '" data-navigo>' + stream.album.object.name + '</a></div>';
@@ -127,7 +133,11 @@ function tblStreamsTop(streams) {
 function tblAlbum(provider, album) {
 	//console.log(album);
 	var html = '';
-	html += '<td colspan="5"><div id="album"><a href="/album?uri=' + album.uri + '" data-navigo>' + album.name + '</a></div></td>';
+	html += '<td colspan="5"><div id="album"><a href="/album?uri=' + album.uri + '" data-navigo>' + album.name;
+	if (album.explicit) {
+		html += ' ' + explicit;
+	}
+	html += '</a></div></td>';
 
 	if (album.artworks != null) {
 		var selbg = album.artworks.length-1;
@@ -170,9 +180,12 @@ function tblStreamAlbum(provider, stream, number) {
 	var refresh = '<small>refresh to try again</small>';
 	var html = '<td><div id="stream"><a href="/stream?uri=' + stream.uri + '" data-navigo>';
 	if (stream.name !== "") {
-		html += stream.name + '</a></td>';
+		html += stream.name;
 	} else {
-		html += refresh + '</a></td>';
+		html += refresh;
+	}
+	if (stream.explicit) {
+		html += ' ' + explicit;
 	}
 	html += '</a></div></td><td>' + secondsTimestamp(stream.duration) + '<br /><div id="controls">';
 	if (stream.transcript != null) {
