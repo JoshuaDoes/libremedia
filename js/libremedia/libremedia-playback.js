@@ -106,7 +106,7 @@ async function updateAudioPlayer(streamURI) {
 		}
 		setBgStream(stream);
 	} catch (error) {
-		console.log("Error filling metadata into audio player:", error);
+		console.error("Error filling metadata into audio player:", error);
 		displayNotification(error, 0);
 		throw error;
 	}
@@ -123,7 +123,7 @@ async function playStream(match) {
 	try {
 		await updateAudioPlayer(uri);
 	} catch (error) {
-		console.log("Error playing audio:", error);
+		console.error("Error playing audio:", error);
 		displayNotification(error, 0);
 		throw error;
 	}

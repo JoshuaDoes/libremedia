@@ -1,5 +1,5 @@
 async function displayNotification(msg, timeout) {
-	console.log("Notification for " + timeout + " milliseconds: " + msg);
+	//console.log("Notification for " + timeout + " milliseconds: " + msg);
 	interruptNotification = true;
 	if (notif == null)
 		return;
@@ -265,7 +265,7 @@ async function displayTranscript(match) {
 		uri = match.params.uri;
 	}
 	if (uri == "") {
-		pagePotato();
+		pageRelease();
 		return;
 	}
 	//console.log("Transcript: " + uri);
@@ -350,13 +350,13 @@ async function displayTranscript(match) {
 				}
 			}
 			render(match, html);
-
-			if (isNowPlaying) {
-				//console.log("Now playing, loading transcript timings");
-				loadTranscriptTimings(stream);
-			}
 		} else {
 			render(match, "No transcript for this stream!");
+		}
+		if (isNowPlaying) {
+			//console.log("Now playing, loading transcript timings");
+			await loadTranscriptTimings(stream);
+			//console.log("Finished loading transcript timings");
 		}
 	} catch (error) {
 		console.error("Error displaying transcript:", error);

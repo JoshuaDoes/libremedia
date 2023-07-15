@@ -19,8 +19,11 @@ async function loadTranscriptTimings(stream) {
 		lyricScroller();
 		lyricScrollerId = setInterval(lyricScroller, 100);
 		//console.log("Spawned auto-scroller: " + lyricScrollerId);
+		//console.log(stream);
 	} else {
 		//console.log("Failed to match case for loading transcript timings " + lastPageUrl);
+		//console.log(stream);
+		//console.log(nowPlaying);
 	}
 }
 
@@ -96,7 +99,8 @@ function lyricSeek(lyric) {
 		startTimeMs = line[0];
 	}
 	var startTime = Math.floor(startTimeMs / 1000);
-	//console.log("Seeking to timestamp " + startTime);
+	//console.log(nowPlayingTiming);
+	//console.log("Seeking to timestamp " + startTime + " for lyric " + lyric);
 	player.currentTime = startTime;
 	timer.innerHTML = secondsTimestamp(player.currentTime) + " / " + secondsTimestamp(player.duration);
 	lastScrollY = window.scrollY;
