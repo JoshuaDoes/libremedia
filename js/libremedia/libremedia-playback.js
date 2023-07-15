@@ -1,4 +1,4 @@
-function createAudioPlayer() {
+async function createAudioPlayer() {
 	if (createdAudioPlayer) {
 		return;
 	}
@@ -43,74 +43,96 @@ function createAudioPlayer() {
 
 	//Rebuild the audio player's metadata if something was playing
 	if (nowPlaying != null) {
-		const stream = nowPlaying;
-		const creator = '<div id="creator"><a href="/creator?uri=' + stream.creators[0].object.uri + '" data-navigo>' + stream.creators[0].object.name + '</a></div>';
-		const albumObj = v1GetObject(stream.album.object.uri).object;
-		const album = '<div id="album"><a href="/album?uri=' + stream.album.object.uri + '" data-navigo>' + albumObj.name + '</a>';
-		//const number = stream.number; //TODO: Return track number of album in the API
-		const name = '<div id="stream"><a href="/stream?uri=' + stream.uri + '" data-navigo>' + stream.name + '</a></div>';
+		try {
+			const stream = nowPlaying;
+			const creator = '<div id="creator"><a href="/creator?uri=' + stream.creators[0].object.uri + '" data-navigo>' + stream.creators[0].object.name + '</a></div>';
+			const albumObj = (await v1GetObject(stream.album.object.uri)).object;
+			const album = '<div id="album"><a href="/album?uri=' + stream.album.object.uri + '" data-navigo>' + albumObj.name + '</a>';
+			//const number = stream.number; //TODO: Return track number of album in the API
+			const name = '<div id="stream"><a href="/stream?uri=' + stream.uri + '" data-navigo>' + stream.name + '</a></div>';
 
-		metadata.innerHTML = name + creator + album;
-		if (albumObj.datetime != null)
-			metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
-		//buttonDownload.innerHTML = '<a href="/download?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-download"></i></a>';
-		buttonTranscript.innerHTML = '<a href="/transcript" data-navigo><i class="fa-solid fa-music"></i></a>';
-		timer.innerHTML = secondsTimestamp(player.currentTime) + " / " + secondsTimestamp(stream.duration);
-		navigo.updatePageLinks();
+			metadata.innerHTML = name + creator + album;
+			if (albumObj.datetime != null)
+				metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
+			//buttonDownload.innerHTML = '<a href="/download?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-download"></i></a>';
+			buttonTranscript.innerHTML = '<a href="/transcript" data-navigo><i class="fa-solid fa-music"></i></a>';
+			timer.innerHTML = secondsTimestamp(player.currentTime) + " / " + secondsTimestamp(stream.duration);
+			navigo.updatePageLinks();
+		} catch (error) {
+			console.error("Error filling metadata into audio player:", error);
+			displayNotification(error, 0);
+			throw error;
+		}
 	} else {
 		timer.innerHTML = "Waiting to stream...";
 		btnPP.innerHTML = loading;
 	}
 }
 
-function updateAudioPlayer(streamURI) {
-	//console.log("Updating audio player " + lastPageUrl);
+async function updateAudioPlayer(streamURI) {
+	//console.log("Updating audio player on " + lastPageUrl + " for URI " + streamURI);
 
 	if (streamURI == null) {
+		audioPause();
 		player.src = "";
 		player.duration = 0;
+		metadata.innerHTML = "";
+		buttonTranscript.innerHTML = '<i class="fa-solid fa-music"></i>';
+		timer.innerHTML = "Waiting to stream...";
 		resetBgImg();
 		return;
 	}
 
-	const stream = v1GetObject(streamURI).object;
-	nowPlaying = stream;
-	const creator = '<div id="creator"><a href="/creator?uri=' + stream.creators[0].object.uri + '" data-navigo>' + stream.creators[0].object.name + '</a></div>';
-	const albumObj = v1GetObject(stream.album.object.uri).object;
-	const album = '<div id="album"><a href="/album?uri=' + stream.album.object.uri + '" data-navigo>' + albumObj.name + '</a>';
-	//const number = stream.number; //TODO: Return track number of album in the API
-	const name = '<div id="stream"><a href="/stream?uri=' + streamURI + '" data-navigo>' + stream.name + '</a></div>';
-	const duration = stream.duration / 1000.0;
+	try {
+		const stream = (await v1GetObject(streamURI)).object;
+		nowPlaying = stream;
+		const creator = '<div id="creator"><a href="/creator?uri=' + stream.creators[0].object.uri + '" data-navigo>' + stream.creators[0].object.name + '</a></div>';
+		const albumObj = (await v1GetObject(stream.album.object.uri)).object;
+		const album = '<div id="album"><a href="/album?uri=' + stream.album.object.uri + '" data-navigo>' + albumObj.name + '</a>';
+		//const number = stream.number; //TODO: Return track number of album in the API
+		const name = '<div id="stream"><a href="/stream?uri=' + streamURI + '" data-navigo>' + stream.name + '</a></div>';
+		const duration = stream.duration / 1000.0;
 
-	displayNotification("Now playing:<br />" + name + creator + album, 4000);
-	metadata.innerHTML = name + creator + album;
-	if (albumObj.datetime != null)
-		metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
-	player.src = "/v1/stream/" + streamURI;
-	player.duration = duration;
-	//buttonDownload.innerHTML = '<a href="/download?uri=' + streamURI + '" data-navigo><i class="fa-solid fa-download"></i></a>';
-	buttonTranscript.innerHTML = '<a href="/transcript" data-navigo><i class="fa-solid fa-music"></i></a>';
-	timer.innerHTML = "0:00 / " + secondsTimestamp(duration);
-	navigo.updatePageLinks();
+		displayNotification("Now playing:<br />" + name + creator + album, 2000);
+		metadata.innerHTML = name + creator + album;
+		if (albumObj.datetime != null)
+			metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
+		player.src = "/v1/stream/" + streamURI;
+		player.duration = duration;
+		//buttonDownload.innerHTML = '<a href="/download?uri=' + streamURI + '" data-navigo><i class="fa-solid fa-download"></i></a>';
+		buttonTranscript.innerHTML = '<a href="/transcript" data-navigo><i class="fa-solid fa-music"></i></a>';
+		timer.innerHTML = "0:00 / " + secondsTimestamp(duration);
+		navigo.updatePageLinks();
 
-	if (lastPageUrl == "transcript" || lastPageUrl == "transcript?uri=" + stream.uri) {
-		displayTranscript(null);
+		if (lastPageUrl == "transcript" || lastPageUrl == "transcript?uri=" + stream.uri) {
+			await displayTranscript(null);
+		}
+		setBgStream(stream);
+	} catch (error) {
+		console.log("Error filling metadata into audio player:", error);
+		displayNotification(error, 0);
+		throw error;
 	}
-	setBgStream(stream);
 }
 
-function playStream(match) {
+async function playStream(match) {
 	if (match.params == null) {
 		pagePotato(match);
 		return;
 	}
 	var uri = match.params.uri;
 	//console.log("Now playing: " + uri);
-	updateAudioPlayer(uri);
+	pagePotato(match);
+	try {
+		await updateAudioPlayer(uri);
+	} catch (error) {
+		console.log("Error playing audio:", error);
+		displayNotification(error, 0);
+		throw error;
+	}
 	queueSet(pageObject);
 	audioInit();
 	audioPP();
-	pagePotato(match);
 }
 
 //Replaces the page queue with a new one, skipping forward to nowPlaying and preserving the user's up next queue
@@ -182,7 +204,7 @@ function queueAddStream(match) {
 	}
 	queueAdd(stream);
 	pagePotato(match);
-	displayNotification("Added to stream!", 4000);
+	displayNotification("Added to stream!", 2000);
 }
 
 //Adds to immediately play next, but logically treats it as the end of the up next queue
@@ -215,7 +237,7 @@ function queueClear() {
 }
 
 //Skips to the next stream in the queue
-function playNext() {
+async function playNext() {
 	if (nowPlaying == null) {
 		return;
 	}
@@ -230,7 +252,6 @@ function playNext() {
 
 	//If repeating now playing, just restart the stream - user should turn it off to advance
 	if (repeat == 2) {
-		//updateAudioPlayer(nowPlaying.uri); //TODO: Literally just restart the stream, no need to do all this reloading nonsense but the function already exists and I haven't Googled it yet
 		audioPP();
 		return;
 	}
@@ -261,7 +282,7 @@ function playNext() {
 		queueEnd--;
 	}
 
-	updateAudioPlayer(nowPlaying.uri);
+	await updateAudioPlayer(nowPlaying.uri);
 	audioPP();
 
 	//console.log("playNext+");
@@ -275,7 +296,7 @@ function playNextEvent(event) {
 }
 
 //Returns to the previous stream in the queue, or restarts the song
-function playPrev() {
+async function playPrev() {
 	if (nowPlaying == null) {
 		return;
 	}
@@ -310,7 +331,7 @@ function playPrev() {
 		queueEnd++;
 	}
 
-	updateAudioPlayer(nowPlaying.uri);
+	await updateAudioPlayer(nowPlaying.uri);
 	audioPP();
 
 	//console.log("playPrev+");

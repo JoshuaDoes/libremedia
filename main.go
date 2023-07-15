@@ -118,7 +118,7 @@ func v1Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	if !obj.Expanded && !obj.Expanding {
 		switch obj.Type {
-		case "album":
+		case "album", "creator", "stream":
 			obj.Expand()
 		default:
 			go obj.Expand()

@@ -60,6 +60,8 @@ function audioReady(event) {
 }
 
 function audioPlay(event) {
+  if (audio.src == "")
+    return;
   if (!playing) {
     audio.play();
   }
@@ -83,7 +85,7 @@ function audioResume(event) {
 }
 
 function audioTime(event) {
-  if (timer.innerHTML == "") {
+  if (timer.innerHTML == "" || timer.innerHTML == "Waiting to stream...") {
     return;
   }
   const pos = audio.currentTime;

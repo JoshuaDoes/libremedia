@@ -1,35 +1,90 @@
 /* API handlers */
 
-function Get(link) {
-	var HttpReq = new XMLHttpRequest();
-	HttpReq.open("GET", link, false);
-	HttpReq.send(null);
-	return HttpReq;
-}
-function GetData(link) {
-	return Get(link).response;
-}
-function GetText(link) {
-	return Get(link).responseText;
-}
-function GetJson(link) {
-	var jsonData = GetData(link);
-	var jsonObj = JSON.parse(jsonData);
-	return jsonObj;
+function get(link) {
+	return new Promise((resolve, reject) => {
+		const HttpReq = new XMLHttpRequest();
+		HttpReq.open("GET", link);
+		HttpReq.onload = function () {
+			if (HttpReq.status === 200) {
+				resolve(HttpReq.responseText);
+			} else {
+				reject(new Error(HttpReq.statusText));
+			}
+		};
+		HttpReq.onerror = function () {
+			reject(new Error("Network error"));
+		};
+		HttpReq.send();
+	});
 }
 
-function v1GetBestMatch(query) {
-	return GetJson('/v1/bestmatch:' + query);
+async function getData(link) {
+	try {
+		const response = await get(link);
+		return response;
+	} catch (error) {
+		console.error("Error fetching data:", error);
+		throw error;
+	}
 }
-function v1GetSearch(query) {
-	return GetJson('/v1/search:' + query);
+
+async function getJson(link) {
+	try {
+		const jsonData = await getData(link);
+		const jsonObj = JSON.parse(jsonData);
+		return jsonObj;
+	} catch (error) {
+		console.error("Error parsing JSON:", error);
+		throw error;
+	}
 }
-function v1GetObject(object) {
-	return GetJson('/v1/' + object);
+
+async function v1GetBestMatch(query) {
+	try {
+		const result = await getJson("/v1/bestmatch:" + query);
+		return result;
+	} catch (error) {
+		console.error("Error in v1GetBestMatch:", error);
+		throw error;
+	}
 }
-function v1GetStream(object) {
-	return GetJson('/v1/stream/' + object);
+
+async function v1GetSearch(query) {
+	try {
+		const result = await getJson("/v1/search:" + query);
+		return result;
+	} catch (error) {
+		console.error("Error in v1GetSearch:", error);
+		throw error;
+	}
 }
-function v1GetStreamBestMatch(query) {
-	return GetJson('/v1/stream/bestmatch:' + query);
+
+async function v1GetObject(object) {
+	try {
+		const result = await getJson("/v1/" + object);
+		return result;
+	} catch (error) {
+		console.error("Error in v1GetObject:", error);
+		throw error;
+	}
+}
+
+async function v1GetStream(object) {
+	try {
+		const result = await getJson("/v1/stream/" + object);
+		return result;
+	} catch (error) {
+		console.error("Error in v1GetStream:", error);
+		throw error;
+	}
+}
+
+async function v1GetStreamBestMatch(query) {
+	try {
+		const result = await getJson("/v1/stream/bestmatch:" + query);
+		return result;
+	} catch (error) {
+		console.error("Error in v1GetStreamBestMatch:", error);
+		throw error;
+	}
 }

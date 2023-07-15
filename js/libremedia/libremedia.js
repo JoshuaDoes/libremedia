@@ -59,6 +59,8 @@ var interruptNotification = false;
 //Static icons and texts
 var refresh = '<small>refresh to try again</small>';
 var explicit = '<i class="fa-solid fa-ban"></i>';
+var search = '🔎';
+var loader = '<i class="fa-solid fa-music"></i>';
 
 $(document).ready(function() {
 	console.log("Setting up libremedia...");

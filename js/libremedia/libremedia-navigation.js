@@ -73,7 +73,7 @@ function refreshElements() {
 	notif = document.getElementById("notification");
 }
 
-const render = (match, content) => {
+render = (match, content) => {
 	//Make sure we know our stuff first
 	refreshElements()
 
@@ -153,6 +153,26 @@ function toggleVisibility() {
 	}
 
 	setNavButtons();
+}
+
+function clearPage() {
+	//console.log("clearPage");
+	refreshElements();
+	clearTimeout(delayTimer);
+	delayTimer = null;
+	clearInterval(lyricScrollerId); //User has definitely navigated away from transcript page
+	lyricScrollerId = null;
+	resetScroll();
+	lastScrollY = -1;
+	lastLyric = -1;
+	render(null, ""); //Clear the page
+	if (searching != null)
+		searching.innerHTML = '';
+	if (searchbox != null)
+		searchbox.value = '';
+	bgImg = "";
+	resetBgImg();
+	//pageObject = [];
 }
 
 function pageCapture(match) {

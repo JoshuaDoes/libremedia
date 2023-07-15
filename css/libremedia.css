@@ -177,6 +177,7 @@ td {
   margin-top: 30px;
   /* background-color: rgba(var(--theme-background-overlay)); */
   backdrop-filter: blur(3px) brightness(75%) saturate(150%);
+  font-size: 3em;
 }
 
 #notification {
@@ -187,6 +188,7 @@ td {
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
+  font-size: 3em;
 }
 
 #stream a {
