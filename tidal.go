@@ -708,7 +708,7 @@ func (t *TidalClient) GetAudioStream(trackID, quality string) (manifest *TidalAu
 	}
 	manifest.Quality = quality
 	manifest.Codecs = "flac"
-	manifest.MimeType = "audio/mp4"
+	manifest.MimeType = "audio/flac"
 	return manifest, nil
 
 	/*reqForm := url.Values{}
