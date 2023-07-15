@@ -104,11 +104,10 @@ render = (match, content) => {
 
 //Button navigation for embedded clients
 function setNavButtons() {
-	var btnBack = '<a href="/back" data-navigo><i class="fa-solid fa-arrow-left"></i></a>';
-	var btnVisibility = '<a id="visibility" onclick="toggleVisibility()"><i class="fa-solid fa-eye';
+	var btnBack = '<button><a href="/back" data-navigo>' + iconNavBack + '</a></button>';
+	var btnVisibility = '<button><a id="visibility" onclick="toggleVisibility()">' + iconVisible + '</a></button>';
 	if (!visibility)
-		btnVisibility += '-slash';
-	btnVisibility += '"></i></a>';
+		btnVisibility = '<button><a id="visibility" onclick="toggleVisibility()">' + iconInvisible + '</a></button>';
 	var btns = '';
 	if (pageNum > 0 && visibility)
 		btns += btnBack + ' ';
@@ -129,7 +128,7 @@ function toggleVisibility() {
 	if (visibility) {
 		//console.log("Hiding elements");
 		visibility = false;
-		buttonVisibility.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+		buttonVisibility.innerHTML = iconInvisible;
 		infobar.setAttribute("id", "infobar hidden");
 		searchbar.setAttribute("id", "search hidden");
 
@@ -143,7 +142,7 @@ function toggleVisibility() {
 	} else {
 		//console.log("Showing elements");
 		visibility = true;
-		buttonVisibility.innerHTML = '<i class="fa-solid fa-eye"></i>';
+		buttonVisibility.innerHTML = iconVisible;
 		infobar.setAttribute("id", "infobar");
 		searchbar.setAttribute("id", "search");
 

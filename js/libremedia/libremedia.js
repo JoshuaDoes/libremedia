@@ -59,14 +59,24 @@ var interruptNotification = false;
 //Static icons and texts
 var textRefresh = '<small>refresh to try again</small>';
 var iconExplicit = '<i class="bi bi-explicit"></i>';
-var iconSearching = '🔎';
-var iconLoading = '<i class="fa-solid fa-music"></i>';
+var iconSearching = '<i class="bi bi-search"></i>';
 var iconDownload = '<i class="bi bi-file-earmark-arrow-down"></i>';
 var iconAddQueue = '<i class="bi bi-music-note-list"></i>';
 var iconTranscript = '<i class="bi bi-body-text"></i>';
-var iconPrevious = '<i class="fa-solid fa-backward-step"></i>';
-var iconNext = '<i class="fa-solid fa-forward-step"></i>';
-var iconRepeat = '<i class="fa-solid fa-right-long"></i>';
+var iconPrevious = '<i class="bi bi-skip-backward"></i>';
+var iconNext = '<i class="bi bi-skip-forward"></i>';
+var iconNoRepeat = '<i class="bi bi-arrow-right"></i>';
+var iconRepeatQueue = '<i class="bi bi-repeat"></i>';
+var iconRepeatOnce = '<i class="bi bi-repeat-1"></i>';
+var iconNavBack = '<i class="bi bi-arrow-left"></i>';
+var iconVisible = '<i class="bi bi-eye"></i>';
+var iconInvisible = '<i class="bi bi-eye-slash"></i>';
+var iconProviderLocal = '<i class="bi bi-file-earmark-music"></i>';
+var iconProviderSpotify = '<i class="bi bi-spotify"></i>';
+var iconProviderTidal = '<img width="32" height="32" src="https://img.icons8.com/fluency/48/null/tidal.png"/>';
+play = '<i class="bi bi-play-btn"></i>';
+pause = '<i class="bi bi-pause-btn"></i>';
+loading = '<img width="40px" height="40px" top="10px" left="10px" src="/img/loading.gif" />';
 
 $(document).ready(function() {
 	console.log("Setting up libremedia...");

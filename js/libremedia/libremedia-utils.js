@@ -36,11 +36,11 @@ function resetScroll() {
 function iconProvider(provider) {
 	switch (provider) {
 		case "spotify":
-			return '<img width="32" height="32" src="https://img.icons8.com/fluency/48/null/spotify.png"/>';
+			return iconProviderSpotify;
 		case "tidal":
-			return '<img width="32" height="32" src="https://img.icons8.com/fluency/48/null/tidal.png"/>';
+			return iconProviderTidal;
 	}
-	return '<i class="fa-solid fa-cloud-music"></i>';
+	return iconProviderLocal;
 }
 
 function sanitizeWhitespace(input) {

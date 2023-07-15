@@ -28,7 +28,7 @@ async function createAudioPlayer() {
 	//buttonDownload.setAttribute("id", "btnDownload");
 	buttonRepeat = document.createElement("button");
 	buttonRepeat.setAttribute("id", "btnRepeat");
-	buttonRepeat.innerHTML = iconRepeat;
+	buttonRepeat.innerHTML = iconNoRepeat;
 	buttonRepeat.addEventListener("click", toggleRepeat);
 	controls.appendChild(buttonTranscript);
 	controls.appendChild(buttonPrev);
@@ -54,7 +54,6 @@ async function createAudioPlayer() {
 			metadata.innerHTML = name + creator + album;
 			if (albumObj.datetime != null)
 				metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
-			//buttonDownload.innerHTML = '<a href="/download?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-download"></i></a>';
 			timer.innerHTML = secondsTimestamp(player.currentTime) + " / " + secondsTimestamp(stream.duration);
 			navigo.updatePageLinks();
 		} catch (error) {
@@ -343,17 +342,17 @@ function toggleRepeat() {
 		case 0:
 			//console.log("Repeating queue");
 			repeat = 1;
-			buttonRepeat.innerHTML = '<i class="fa-solid fa-repeat"></i>';
+			buttonRepeat.innerHTML = iconRepeatQueue;
 			break;
 		case 1:
 			//console.log("Repeating now playing");
 			repeat = 2;
-			buttonRepeat.innerHTML = '<i class="fa-solid fa-hourglass-start"></i>';
+			buttonRepeat.innerHTML = iconRepeatOnce;
 			break;
 		case 2:
 			//console.log("Not repeating");
 			repeat = 0;
-			buttonRepeat.innerHTML = '<i class="fa-solid fa-right-long"></i>';
+			buttonRepeat.innerHTML = iconNoRepeat;
 			break;
 	}
 }

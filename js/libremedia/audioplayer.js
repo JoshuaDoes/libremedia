@@ -4,9 +4,9 @@ var audio;
 var timer;
 
 //Icons
-var play = '<i class="fa-solid fa-play"></i>';
-var pause = '<i class="fa-solid fa-pause"></i>';
-var loading = "<img width=\"40px\" height=\"40px\" top=\"10px\" left=\"10px\" src=\"/img/loading.gif\" />";
+var play = 'PLAY';
+var pause = 'PAUSE';
+var loading = "LOADING";
 
 //State
 var ready = false;

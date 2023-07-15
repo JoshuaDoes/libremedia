@@ -277,3 +277,27 @@ input[type="text"]:focus {
   color: white;
   display: none; 
 }
+
+button {
+  margin: 15px;
+  font-size: 2em;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: crosshair;
+  text-align: center;
+
+  padding: 0;
+  border: none;
+  background: none;
+  color: white;
+  background-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+button:focus {
+  outline: none;
+}

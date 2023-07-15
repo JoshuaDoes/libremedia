@@ -24,7 +24,7 @@ function tblStream(provider, stream) {
 	}
 	html += '</td><td>' + secondsTimestamp(stream.duration) + '<br /><div id="controls">';
 	if (stream.transcript != null) {
-		html += '<a href="/transcript?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-music"></i></a> ';
+		html += '<a href="/transcript?uri=' + stream.uri + '" data-navigo>' + iconTranscript + '</a> ';
 	}
 	html += '<a href="/download?uri=' + stream.uri + '" data-navigo>' + iconDownload + '</a> ';
 	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo>' + iconAddQueue + '</a></div></td>';
@@ -107,7 +107,7 @@ function tblStreamTop(provider, stream) {
 	}
 	html += '</td><td>' + secondsTimestamp(stream.duration) + '<br /><div id="controls">';
 	if (stream.transcript != null) {
-		html += '<a href="/transcript?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-music"></i></a> ';
+		html += '<a href="/transcript?uri=' + stream.uri + '" data-navigo>' + iconTranscript + '</a> ';
 	}
 	html += '<a href="/download?uri=' + stream.uri + '" data-navigo>' + iconDownload + '</a> ';
 	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo>' + iconAddQueue + '</a></div></td>';
@@ -196,7 +196,7 @@ function tblStreamAlbum(provider, stream, number) {
 	}
 	html += '</a></div></td><td>' + secondsTimestamp(stream.duration) + '<br /><div id="controls">';
 	if (stream.transcript != null) {
-		html += '<a href="/transcript?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-music"></i></a> ';
+		html += '<a href="/transcript?uri=' + stream.uri + '" data-navigo>' + iconTranscript + '</a> ';
 	}
 	html += '<a href="/download?uri=' + stream.uri + '" data-navigo>' + iconDownload + '</a> ';
 	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo>' + iconAddQueue + '</a></div></td>';

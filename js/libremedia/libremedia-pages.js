@@ -73,7 +73,7 @@ async function displaySearch(match) {
 
 async function displayCreator(match) {
 	if (searching != null)
-		searching.innerHTML = iconLoading;
+		searching.innerHTML = loading;
 	if (match.params == null) {
 		pageRelease();
 		return;
@@ -179,7 +179,7 @@ async function displayCreator(match) {
 
 async function displayAlbum(match) {
 	if (searching != null)
-		searching.innerHTML = iconLoading;
+		searching.innerHTML = loading;
 	if (match.params == null) {
 		pageRelease();
 		return;
@@ -217,7 +217,7 @@ async function displayAlbum(match) {
 			'" data-navigo>' +
 			album.object.name;
 		if (album.object.explicit) {
-			html += ' <i class="fa-solid fa-ban"></i>';
+			html += ' ' + iconExplicit;
 		}
 		if (album.object.datetime != null) {
 			html +=
@@ -253,7 +253,7 @@ async function displayAlbum(match) {
 
 async function displayTranscript(match) {
 	if (searching != null)
-		searching.innerHTML = iconLoading;
+		searching.innerHTML = loading;
 	clearInterval(lyricScrollerId);
 	nowPlayingTiming = [];
 
