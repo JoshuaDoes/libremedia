@@ -36,7 +36,7 @@ async function displayNotification(msg, timeout) {
 }
 
 async function displaySearch(match) {
-	searching.innerHTML = search;
+	searching.innerHTML = iconSearching;
 	var q = match.params.q;
 	//console.log("Search: " + q);
 	clearTimeout(delayTimer);
@@ -73,7 +73,7 @@ async function displaySearch(match) {
 
 async function displayCreator(match) {
 	if (searching != null)
-		searching.innerHTML = loader;
+		searching.innerHTML = iconLoading;
 	if (match.params == null) {
 		pageRelease();
 		return;
@@ -179,7 +179,7 @@ async function displayCreator(match) {
 
 async function displayAlbum(match) {
 	if (searching != null)
-		searching.innerHTML = loader;
+		searching.innerHTML = iconLoading;
 	if (match.params == null) {
 		pageRelease();
 		return;
@@ -253,7 +253,7 @@ async function displayAlbum(match) {
 
 async function displayTranscript(match) {
 	if (searching != null)
-		searching.innerHTML = loader;
+		searching.innerHTML = iconLoading;
 	clearInterval(lyricScrollerId);
 	nowPlayingTiming = [];
 
@@ -265,7 +265,7 @@ async function displayTranscript(match) {
 		uri = match.params.uri;
 	}
 	if (uri == "") {
-		pageRelease();
+		pagePotato();
 		return;
 	}
 	//console.log("Transcript: " + uri);

@@ -5,29 +5,29 @@ function tblStream(provider, stream) {
 	if (stream.name !== "") {
 		html += stream.name;
 	} else {
-		html += refresh;
+		html += textRefresh;
 	}
 	if (stream.explicit) {
-		html += ' ' + explicit;
+		html += ' ' + iconExplicit;
 	}
 	html += '</a></div><br />';
 	if (stream.creators != null) {
 		html += '<div id="creator"><a href="/creator?uri=' + stream.creators[0].object.uri + '" data-navigo>' + stream.creators[0].object.name + '</a></div>';
 	} else {
-		html += refresh;
+		html += textRefresh;
 	}
 	html += '<br />';
 	if (stream.album != null) {
 		html += '<div id="album"><a href="/album?uri=' + stream.album.object.uri + '" data-navigo>' + stream.album.object.name + '</a></div>';
 	} else {
-		html += refresh;
+		html += textRefresh;
 	}
 	html += '</td><td>' + secondsTimestamp(stream.duration) + '<br /><div id="controls">';
 	if (stream.transcript != null) {
 		html += '<a href="/transcript?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-music"></i></a> ';
 	}
-	html += '<a href="/download?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-download"></i></a> ';
-	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-plus"></i></a></div></td>';
+	html += '<a href="/download?uri=' + stream.uri + '" data-navigo>' + iconDownload + '</a> ';
+	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo>' + iconAddQueue + '</a></div></td>';
 
 	if (stream.album.object.artworks != null) {
 		var selbg = stream.album.object.artworks.length - 1;
@@ -90,28 +90,27 @@ function tblRelated(creators) {
 
 function tblStreamTop(provider, stream) {
 	//console.log(stream);
-	var refresh = '<small>refresh to try again</small>';
 	var html = '<td><div id="stream"><a href="/stream?uri=' + stream.uri + '" data-navigo>';
 	if (stream.name !== "") {
 		html += stream.name;
 	} else {
-		html += refresh;
+		html += textRefresh;
 	}
 	if (stream.explicit) {
-		html += ' ' + explicit;
+		html += ' ' + iconExplicit;
 	}
 	html += '</a></div><br />';
 	if (stream.album != null) {
 		html += '<div id="album"><a href="/album?uri=' + stream.album.object.uri + '" data-navigo>' + stream.album.object.name + '</a></div>';
 	} else {
-		html += refresh;
+		html += textRefresh;
 	}
 	html += '</td><td>' + secondsTimestamp(stream.duration) + '<br /><div id="controls">';
 	if (stream.transcript != null) {
 		html += '<a href="/transcript?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-music"></i></a> ';
 	}
-	html += '<a href="/download?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-download"></i></a> ';
-	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-plus"></i></a></div></td>';
+	html += '<a href="/download?uri=' + stream.uri + '" data-navigo>' + iconDownload + '</a> ';
+	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo>' + iconAddQueue + '</a></div></td>';
 
 	if (stream.album.object.artworks != null) {
 		var selbg = stream.album.object.artworks.length - 1;
@@ -140,7 +139,7 @@ function tblAlbum(provider, album) {
 	var html = '';
 	html += '<td colspan="5"><div id="album"><a href="/album?uri=' + album.uri + '" data-navigo>' + album.name;
 	if (album.explicit) {
-		html += ' ' + explicit;
+		html += ' ' + iconExplicit;
 	}
 	html += '</a></div></td>';
 
@@ -186,22 +185,21 @@ function tblAppearances(albums) {
 }
 
 function tblStreamAlbum(provider, stream, number) {
-	var refresh = '<small>refresh to try again</small>';
 	var html = '<td><div id="stream"><a href="/stream?uri=' + stream.uri + '" data-navigo>';
 	if (stream.name !== "") {
 		html += stream.name;
 	} else {
-		html += refresh;
+		html += textRefresh;
 	}
 	if (stream.explicit) {
-		html += ' ' + explicit;
+		html += ' ' + iconExplicit;
 	}
 	html += '</a></div></td><td>' + secondsTimestamp(stream.duration) + '<br /><div id="controls">';
 	if (stream.transcript != null) {
 		html += '<a href="/transcript?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-music"></i></a> ';
 	}
-	html += '<a href="/download?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-download"></i></a> ';
-	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-plus"></i></a></div></td>';
+	html += '<a href="/download?uri=' + stream.uri + '" data-navigo>' + iconDownload + '</a> ';
+	html += '<a href="/addqueue?uri=' + stream.uri + '" data-navigo>' + iconAddQueue + '</a></div></td>';
 
 	if (stream.album.object.artworks != null) {
 		var selbg = stream.album.object.artworks.length - 1;

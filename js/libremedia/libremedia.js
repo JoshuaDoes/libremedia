@@ -57,10 +57,16 @@ var createdAudioPlayer = false;
 var interruptNotification = false;
 
 //Static icons and texts
-var refresh = '<small>refresh to try again</small>';
-var explicit = '<i class="fa-solid fa-ban"></i>';
-var search = '🔎';
-var loader = '<i class="fa-solid fa-music"></i>';
+var textRefresh = '<small>refresh to try again</small>';
+var iconExplicit = '<i class="bi bi-explicit"></i>';
+var iconSearching = '🔎';
+var iconLoading = '<i class="fa-solid fa-music"></i>';
+var iconDownload = '<i class="bi bi-file-earmark-arrow-down"></i>';
+var iconAddQueue = '<i class="bi bi-music-note-list"></i>';
+var iconTranscript = '<i class="bi bi-body-text"></i>';
+var iconPrevious = '<i class="fa-solid fa-backward-step"></i>';
+var iconNext = '<i class="fa-solid fa-forward-step"></i>';
+var iconRepeat = '<i class="fa-solid fa-right-long"></i>';
 
 $(document).ready(function() {
 	console.log("Setting up libremedia...");

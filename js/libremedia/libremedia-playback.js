@@ -9,10 +9,10 @@ async function createAudioPlayer() {
 	controls.innerHTML = "";
 	buttonTranscript = document.createElement("button");
 	buttonTranscript.setAttribute("id", "btnTranscript");
-	buttonTranscript.innerHTML = '<i class="fa-solid fa-music"></i>';
+	buttonTranscript.innerHTML = '<a href="/transcript" data-navigo>' + iconTranscript + '</a>';
 	buttonPrev = document.createElement("button");
 	buttonPrev.setAttribute("id", "btnPrv");
-	buttonPrev.innerHTML = '<i class="fa-solid fa-backward-step"></i>';
+	buttonPrev.innerHTML = iconPrevious;
 	buttonPrev.addEventListener("click", playPrev);
 	buttonPP = document.createElement("button");
 	buttonPP.setAttribute("id", "btnPP");
@@ -22,13 +22,13 @@ async function createAudioPlayer() {
 	}
 	buttonNext = document.createElement("button");
 	buttonNext.setAttribute("id", "btnNxt");
-	buttonNext.innerHTML = '<i class="fa-solid fa-forward-step"></i>';
+	buttonNext.innerHTML = iconNext;
 	buttonNext.addEventListener("click", playNext);
 	//buttonDownload = document.createElement("button");
 	//buttonDownload.setAttribute("id", "btnDownload");
 	buttonRepeat = document.createElement("button");
 	buttonRepeat.setAttribute("id", "btnRepeat");
-	buttonRepeat.innerHTML = '<i class="fa-solid fa-right-long"></i>';
+	buttonRepeat.innerHTML = iconRepeat;
 	buttonRepeat.addEventListener("click", toggleRepeat);
 	controls.appendChild(buttonTranscript);
 	controls.appendChild(buttonPrev);
@@ -55,7 +55,6 @@ async function createAudioPlayer() {
 			if (albumObj.datetime != null)
 				metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
 			//buttonDownload.innerHTML = '<a href="/download?uri=' + stream.uri + '" data-navigo><i class="fa-solid fa-download"></i></a>';
-			buttonTranscript.innerHTML = '<a href="/transcript" data-navigo><i class="fa-solid fa-music"></i></a>';
 			timer.innerHTML = secondsTimestamp(player.currentTime) + " / " + secondsTimestamp(stream.duration);
 			navigo.updatePageLinks();
 		} catch (error) {
@@ -77,7 +76,6 @@ async function updateAudioPlayer(streamURI) {
 		player.src = "";
 		player.duration = 0;
 		metadata.innerHTML = "";
-		buttonTranscript.innerHTML = '<i class="fa-solid fa-music"></i>';
 		timer.innerHTML = "Waiting to stream...";
 		resetBgImg();
 		return;
@@ -100,8 +98,6 @@ async function updateAudioPlayer(streamURI) {
 			metadata.innerHTML = name + creator + album;
 			if (albumObj.datetime != null)
 				metadata.innerHTML += '<div id="datetime">(' + albumObj.datetime + ')</div>';
-			//buttonDownload.innerHTML = '<a href="/download?uri=' + streamURI + '" data-navigo><i class="fa-solid fa-download"></i></a>';
-			buttonTranscript.innerHTML = '<a href="/transcript" data-navigo><i class="fa-solid fa-music"></i></a>';
 			timer.innerHTML = "0:00 / " + secondsTimestamp(duration);
 			navigo.updatePageLinks();
 		}
