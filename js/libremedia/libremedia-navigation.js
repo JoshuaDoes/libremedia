@@ -152,7 +152,6 @@ function toggleVisibility() {
 	}
 
 	setNavButtons();
-	setPermaCookie("visibility", visibility);
 }
 
 function clearPage() {

@@ -21,9 +21,7 @@ var buttonRepeat;
 var buttonVisibility;
 var notif;
 
-var visibility = getCookie("visibility"); //Used when toggling visibility of the search box and audio player
-if (visibility == "")
-	visibility = "1"; //Default to visible
+var visibility = "1"; //Used when toggling visibility of the search box and audio player
 
 //Playback management
 var queue = []; //Holds a list of queued streams, starting with the user's queue, followed by the queue of the current page
@@ -89,10 +87,5 @@ $(document).ready(function() {
 	createSearchBar();
 	refreshQuery();
 	navigoResolve();
-	if (visibility == "0") {
-		//Easy hack to use our toggle function
-		visibility = "1";
-		toggleVisibility();
-	}
 	//console.log("Finished constructing libremedia instance!");
 });
