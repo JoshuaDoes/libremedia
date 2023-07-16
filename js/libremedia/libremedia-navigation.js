@@ -106,7 +106,7 @@ render = (match, content) => {
 function setNavButtons() {
 	var btnBack = '<button><a href="/back" data-navigo>' + iconNavBack + '</a></button>';
 	var btnVisibility = '<button><a id="visibility" onclick="toggleVisibility()">' + iconVisible + '</a></button>';
-	if (!visibility)
+	if (visibility == "0")
 		btnVisibility = '<button><a id="visibility" onclick="toggleVisibility()">' + iconInvisible + '</a></button>';
 	var btns = '';
 	if (pageNum > 0 && visibility)
@@ -125,9 +125,9 @@ function setNavButtons() {
 
 //Toggles the visibility of the search box and the audio player
 function toggleVisibility() {
-	if (visibility) {
+	if (visibility == "1") {
 		//console.log("Hiding elements");
-		visibility = false;
+		visibility = "0";
 		buttonVisibility.innerHTML = iconInvisible;
 		infobar.setAttribute("id", "infobar hidden");
 		searchbar.setAttribute("id", "search hidden");
@@ -141,7 +141,7 @@ function toggleVisibility() {
 		createdSearchBar = false;
 	} else {
 		//console.log("Showing elements");
-		visibility = true;
+		visibility = "1";
 		buttonVisibility.innerHTML = iconVisible;
 		infobar.setAttribute("id", "infobar");
 		searchbar.setAttribute("id", "search");
@@ -152,6 +152,7 @@ function toggleVisibility() {
 	}
 
 	setNavButtons();
+	setPermaCookie("visibility", visibility);
 }
 
 function clearPage() {

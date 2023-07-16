@@ -28,13 +28,13 @@ async function createAudioPlayer() {
 	buttonRepeat.setAttribute("id", "btnRepeat");
 	buttonRepeat.innerHTML = iconNoRepeat;
 	switch (repeat) {
-	case 0:
+	case "0":
 		buttonRepeat.innerHTML = iconNoRepeat;
 		break;
-	case 1:
+	case "1":
 		buttonRepeat.innerHTML = iconRepeatQueue;
 		break;
-	case 2:
+	case "2":
 		buttonRepeat.innerHTML = iconRepeatOnce;
 		break;
 	}
@@ -346,22 +346,25 @@ async function playPrev() {
 
 //Toggles the current repeat mode
 function toggleRepeat() {
-	queueLeft = queue.length; //Reset the amount of queue entries left to reflect the remaining queue, even if skipped ahead
 	switch (repeat) {
-		case 0:
-			//console.log("Repeating queue");
-			repeat = 1;
+		case "0":
+			console.log("Repeating queue");
+			repeat = "1";
 			buttonRepeat.innerHTML = iconRepeatQueue;
 			break;
-		case 1:
-			//console.log("Repeating now playing");
-			repeat = 2;
+		case "1":
+			console.log("Repeating now playing");
+			repeat = "2";
 			buttonRepeat.innerHTML = iconRepeatOnce;
+			queueLeft = queue.length; //Reset the amount of queue entries left
 			break;
-		case 2:
-			//console.log("Not repeating");
-			repeat = 0;
+		case "2":
+			console.log("Not repeating");
+			repeat = "0";
 			buttonRepeat.innerHTML = iconNoRepeat;
+			queueLeft = 1; //We're always going to have one item left in this repeating queue
 			break;
 	}
+	console.log("New repeat mode: " + repeat);
+	setPermaCookie("repeat", repeat);
 }

@@ -21,7 +21,9 @@ var buttonRepeat;
 var buttonVisibility;
 var notif;
 
-var visibility = true; //Used when toggling visibility of the search box and audio player
+var visibility = getCookie("visibility"); //Used when toggling visibility of the search box and audio player
+if (visibility == "")
+	visibility = "1"; //Default to visible
 
 //Playback management
 var queue = []; //Holds a list of queued streams, starting with the user's queue, followed by the queue of the current page
@@ -31,7 +33,9 @@ var queueLeft = 0; //The total amount of streams left to play before the end of 
 var nowPlaying; //The stream currently loaded into the audio player
 var nowPlayingTiming = []; //The current stream's transcript timings for seeking and following along
 var shuffle = false;
-var repeat = 0; //0=no repeat, 1=repeat queue, 2=repeat now playing
+var repeat = getCookie("repeat"); //0=no repeat, 1=repeat queue, 2=repeat now playing
+if (repeat == "")
+	repeat = "0"; //Default to no repeat
 var lyricScrollerId; //Holds an id returned by setInterval, used to clear timer on page clear
 var lastScrollY = -1; //The last recorded Y-axis scroll position, used to cancel auto-scroller
 var lastLyric = -1; //The last recorded lyric that was auto-scrolled to, -1 means hasn't been scrolled and 0 means beginning of stream
@@ -79,11 +83,16 @@ pause = '<i class="bi bi-pause-btn"></i>';
 loading = '<img width="40px" height="40px" top="10px" left="10px" src="/img/loading.gif" />';
 
 $(document).ready(function() {
-	console.log("Setting up libremedia...");
+	//console.log("Setting up libremedia...");
 	refreshElements();
 	createAudioPlayer();
 	createSearchBar();
 	refreshQuery();
 	navigoResolve();
-	console.log("Finished constructing libremedia instance!");
+	if (visibility == "0") {
+		//Easy hack to use our toggle function
+		visibility = "1";
+		toggleVisibility();
+	}
+	//console.log("Finished constructing libremedia instance!");
 });

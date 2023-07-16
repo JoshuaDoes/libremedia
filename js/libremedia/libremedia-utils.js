@@ -1,3 +1,37 @@
+//Shamelessly copied from https://www.w3schools.com/js/js_cookies.asp
+function getCookie(cname) {
+	let name = cname + "=";
+	let ca = document.cookie.split(';');
+	for(let i = 0; i < ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			const val = c.substring(name.length, c.length);
+			//console.log("Got cookie: " + cname + "=" + val);
+			return val;
+		}
+	}
+	//console.log("No cookie for " + cname);
+	return "";
+}
+
+function setCookie(cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+	let expires = "expires="+d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=strict";
+	//console.log("Updated cookies: " + document.cookie);
+}
+//---------------------------------------------------------------------
+
+//Google Chrome has a limit of 400 days, so that's what we'll use
+function setPermaCookie(cname, cvalue) {
+	setCookie(cname, cvalue, 400);
+	//console.log("Set permanent cookie: " + cname + "=" + cvalue);
+}
+
 function textExpander() {
 	if (elementHidden(readMore)) {
 		elementShow(readMore);
