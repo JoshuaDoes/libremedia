@@ -24,17 +24,25 @@ async function createAudioPlayer() {
 	buttonNext.setAttribute("id", "btnNxt");
 	buttonNext.innerHTML = iconNext;
 	buttonNext.addEventListener("click", playNext);
-	//buttonDownload = document.createElement("button");
-	//buttonDownload.setAttribute("id", "btnDownload");
 	buttonRepeat = document.createElement("button");
 	buttonRepeat.setAttribute("id", "btnRepeat");
 	buttonRepeat.innerHTML = iconNoRepeat;
+	switch (repeat) {
+	case 0:
+		buttonRepeat.innerHTML = iconNoRepeat;
+		break;
+	case 1:
+		buttonRepeat.innerHTML = iconRepeatQueue;
+		break;
+	case 2:
+		buttonRepeat.innerHTML = iconRepeatOnce;
+		break;
+	}
 	buttonRepeat.addEventListener("click", toggleRepeat);
 	controls.appendChild(buttonTranscript);
 	controls.appendChild(buttonPrev);
 	controls.appendChild(buttonPP);
 	controls.appendChild(buttonNext);
-	//controls.appendChild(buttonDownload);
 	controls.appendChild(buttonRepeat);
 
 	//console.log("Setting audio events");
