@@ -348,23 +348,23 @@ async function playPrev() {
 function toggleRepeat() {
 	switch (repeat) {
 		case "0":
-			console.log("Repeating queue");
+			//console.log("Repeating queue");
 			repeat = "1";
 			buttonRepeat.innerHTML = iconRepeatQueue;
 			break;
 		case "1":
-			console.log("Repeating now playing");
+			//console.log("Repeating now playing");
 			repeat = "2";
 			buttonRepeat.innerHTML = iconRepeatOnce;
 			queueLeft = queue.length; //Reset the amount of queue entries left
 			break;
 		case "2":
-			console.log("Not repeating");
+			//console.log("Not repeating");
 			repeat = "0";
 			buttonRepeat.innerHTML = iconNoRepeat;
 			queueLeft = 1; //We're always going to have one item left in this repeating queue
 			break;
 	}
-	console.log("New repeat mode: " + repeat);
+	//console.log("New repeat mode: " + repeat);
 	setPermaCookie("repeat", repeat);
 }

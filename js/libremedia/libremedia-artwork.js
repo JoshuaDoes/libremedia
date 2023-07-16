@@ -9,7 +9,7 @@ function setBgImg(url) {
 	}
 
 	if (document.body.style.backgroundImage !== newbg) {
-		console.log("Setting background " + url + " using " + newbg + " to replace " + document.body.style.backgroundImage);
+		//console.log("Setting background " + url + " using " + newbg + " to replace " + document.body.style.backgroundImage);
 		document.body.style.backgroundImage = newbg;
 		bgImg = url;
 	}
