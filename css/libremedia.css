@@ -39,6 +39,7 @@ body {
   background-size: contain; /* Resize the background image to cover the entire container */
   max-width: 100vw;
   width: 100%;
+  padding-bottom: 100vh;
 }
 
 #more, #showLess {
@@ -47,17 +48,20 @@ body {
 
 #nav {
   position: relative;
-  margin: 15px;
+  margin: 5px;
   left: 0;
   width: fit-content;
   display: block;
   text-align: left;
   color: rgb(var(--theme-text));
   pointer-events: auto;
+  backdrop-filter: brightness(40%);
+  border-collapse: separate;
+  border-spacing: 5px;
+  border-radius: 20px;
 }
 
 #results {
-  padding-bottom: 100vh;
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
@@ -68,21 +72,20 @@ body {
 }
 
 table {
-  margin: 10px;
-  padding-top: 80px;
-  backdrop-filter: blur(5px) brightness(50%) saturate(150%);
+  margin: 5px;
+  margin-top: 80px;
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
-  /* background-color: rgba(var(--theme-background-a)); */
   line-height: 1.5em;
   letter-spacing: 1.1px;
   table-layout: fixed;
+  backdrop-filter: blur(1px) brightness(40%);
 }
 
 th {
   text-align: center;
-  height: 40px;
+  height: 30px;
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
@@ -137,8 +140,7 @@ td {
   padding-bottom: 5px;
   border-top: 1px dotted rgb(var(--theme-text));
   border-bottom: 1px dashed rgb(var(--theme-text));
-  /* background-color: rgba(var(--theme-background-overlay)); */
-  backdrop-filter: blur(7px) brightness(50%) saturate(150%);
+  backdrop-filter: brightness(30%) saturate(150%);
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
@@ -159,12 +161,11 @@ td {
   padding: 0px;
   border-top: 0.5px solid rgb(var(--theme-text));
   border-bottom: 0.5px solid rgb(var(--theme-text));
-  /* background-color: rgba(var(--theme-background-overlay)); */
   top: 0;
   position: fixed;
   width: 100%;
   height: 80px;
-  backdrop-filter: blur(7px) brightness(50%) saturate(150%);
+  backdrop-filter: brightness(30%);
 }
 
 #search #hidden {
@@ -173,28 +174,36 @@ td {
 
 #searching {
   text-align: center;
-  margin-top: 30px;
-  /* background-color: rgba(var(--theme-background-overlay)); */
-  backdrop-filter: blur(3px) brightness(75%);
   font-size: 3em;
+  width: fit-content;
+  margin: auto;
+  margin-top: 30px;
+  padding: 10px;
+  backdrop-filter: blur(2px) brightness(30%);
+  display: none;
+  border-collapse: separate;
+  border-spacing: 5px;
+  border-radius: 20px;
 }
 
 #bottomView {
   position: fixed;
-  bottom: 0;
+  bottom: 1px;
   pointer-events: none;
 }
 
 #notification {
   position: relative;
   text-align: center;
-  /* background-color: rgba(var(--theme-background-overlay)); */
-  backdrop-filter: blur(5px) brightness(50%);
   border-collapse: separate;
   border-spacing: 5px;
   border-radius: 20px;
-  font-size: 2em;
-  width: 100vw;
+  font-size: 1.5em;
+  width: fit-content;
+  margin: auto;
+  padding: 10px;
+  backdrop-filter: blur(2px) brightness(30%);
+  opacity: 0;
 }
 
 #stream a {
@@ -221,7 +230,6 @@ td {
 
 h1 {
   font-weight: bold;
-  backdrop-filter: blur(3px) brightness(75%) saturate(150%);
 }
 
 h2 {}
@@ -282,13 +290,12 @@ input[type="text"]:focus {
 }
 
 button {
-  margin: 15px;
-  font-size: 2em;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 14px;
+  font-size: 1.8em;
   cursor: crosshair;
   text-align: center;
 
-  padding: 0;
+  padding: 2px;
   border: none;
   background: none;
   color: white;

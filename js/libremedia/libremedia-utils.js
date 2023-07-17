@@ -49,7 +49,7 @@ function elementHide(element) {
 }
 
 function elementShow(element) {
-	element.style.display = "inline";
+	element.style.display = "block";
 }
 
 function elementHidden(element) {

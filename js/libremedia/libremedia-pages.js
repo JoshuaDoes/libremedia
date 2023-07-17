@@ -37,6 +37,7 @@ async function displayNotification(msg, timeout) {
 
 async function displaySearch(match) {
 	searching.innerHTML = iconSearching;
+	elementShow(searching);
 	var q = match.params.q;
 	//console.log("Search: " + q);
 	clearTimeout(delayTimer);
@@ -67,6 +68,7 @@ async function displaySearch(match) {
 			console.error("Error displaying search:", error);
 			displayNotification(error, 0);
 		}
+		elementHide(searching);
 		searching.innerHTML = '';
 	}, 1000);
 }
