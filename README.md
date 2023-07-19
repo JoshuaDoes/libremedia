@@ -1,4 +1,43 @@
-### libremedia progress tracker before release
+# libremedia
+
+## How to configure for testing
+
+* WARNING: Spotify playback is broken with the Go port of librespot right now. The catalogue functions still work, but don't expect playback until the plugin system is finished and we switch to using the Rust version of librespot.
+* Check back here with any `git pull` attempts, just in case a configuration format change has been made.
+
+Place the following JSON in a file named `config.json` directly next to your compiled `libremedia` binary (`libremedia.exe` on Windows):
+
+```JSON
+{
+        "httpAddr": ":80",
+        "baseURL": "http://example.com",
+        "handlers": {
+                "tidal": {
+                        "active": true,
+                        "username": "zU4XHVVkc2tDPo4t",
+                        "password": "VJKhDFqJPqvsPVNBV6ukXTJmwlvbttP7wlMlrc72se4=",
+                        "deviceName": "Android Auto (Normal, High, HiFi, Master)",
+                        "blobPath": ".tidal.blob"
+                },
+                "spotify": {
+                        "active": true,
+                        "username": "changeme",
+                        "password": "changeme",
+                        "deviceName": "librespot",
+                        "blobPath": ".spotify.blob"
+                }
+        },
+}
+```
+
+- Change the port in `httpAddr` to something else if you have an HTTP website using port 80 on your host. HTTPS is not supported at this time, use an HTTPS reverse proxy with Apache2 or similar.
+- Change `baseURL` to either your IP address or the domain you'll be using to test libremedia.
+- If the example Tidal API key stops working, find your own or wait for this README to update with a new one.
+- Change the `username` and `password` fields under the Spotify handler to match your account.
+- If desired, change the `blobPath` in your handlers to point to where you want your authentication tokens to be saved. The defaults will normally hide them on Linux.
+- If you don't have an account for a given handler, set the `active` field to false.
+
+### Progress tracker before release
 
 # User interface
 
