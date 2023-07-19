@@ -76,6 +76,7 @@ async function displaySearch(match) {
 async function displayCreator(match) {
 	if (searching != null)
 		searching.innerHTML = loading;
+		elementShow(searching);
 	if (match.params == null) {
 		pageRelease();
 		return;
@@ -176,12 +177,14 @@ async function displayCreator(match) {
 		displayNotification(error, 0);
 	}
 	if (searching != null)
+		elementHide(searching);
 		searching.innerHTML = '';
 }
 
 async function displayAlbum(match) {
 	if (searching != null)
 		searching.innerHTML = loading;
+		elementShow(searching);
 	if (match.params == null) {
 		pageRelease();
 		return;
@@ -250,12 +253,14 @@ async function displayAlbum(match) {
 		displayNotification(error, 0);
 	}
 	if (searching != null)
+		elementHide(searching);
 		searching.innerHTML = '';
 }
 
 async function displayTranscript(match) {
 	if (searching != null)
 		searching.innerHTML = loading;
+		elementShow(searching);
 	clearInterval(lyricScrollerId);
 	nowPlayingTiming = [];
 
@@ -365,5 +370,6 @@ async function displayTranscript(match) {
 		displayNotification(error, 0);
 	}
 	if (searching != null)
+		elementHide(searching);
 		searching.innerHTML = '';
 }
