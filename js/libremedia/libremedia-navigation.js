@@ -26,6 +26,15 @@ function navigoResolve() {
 			pageObject = [];
 			navMap["album"](match);
 		})
+		.on("/newsearch", (match) => {
+			objectRender(match);
+		})
+		.on("/newcreator", (match) => {
+			objectRender(match);
+		})
+		.on("/newalbum", (match) => {
+			objectRender(match);
+		})
 		.on("/transcript", (match) => {
 			navMap["transcript"](match);
 		})
