@@ -58,7 +58,7 @@ var createdSearchBar = false;
 var createdAudioPlayer = false;
 var interruptNotification = false;
 
-//Static icons and texts
+//Icons and texts
 var textRefresh = '<small>refresh to try again</small>';
 var iconExplicit = '<i class="bi bi-explicit"></i>';
 var iconSearching = '<i class="bi bi-search"></i>';
@@ -76,6 +76,7 @@ var iconInvisible = '<i class="bi bi-eye-slash"></i>';
 var iconProviderLocal = '<i class="bi bi-file-earmark-music"></i>';
 var iconProviderSpotify = '<i class="bi bi-spotify"></i>';
 var iconProviderTidal = '<img width="32" height="32" src="https://img.icons8.com/fluency/48/null/tidal.png"/>';
+//Icons and texts from audioplayer.js
 play = '<i class="bi bi-play-btn"></i>';
 pause = '<i class="bi bi-pause-btn"></i>';
 loading = '<img width="40px" height="40px" top="10px" left="10px" src="/img/loading.gif" />';
